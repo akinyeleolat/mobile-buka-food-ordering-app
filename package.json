@@ -12,7 +12,8 @@
     "test": "mocha --require babel-core/register index.test.js --timeout 500000 --exit",
     "cover": "istanbul cover _mocha",
     "babel-node": "babel-node --presets=env",
-    "start": "nodemon --exec npm run babel-node -- ./api/server.js",
+    "startdev": "nodemon --exec npm run babel-node -- ./api/server.js",
+    "start":"node ./api/server.js",
     "build": "babel src -d dist"
   },
   "repository": {
