@@ -1,2 +1,1 @@
-web:node ./api/server.js
-npm start
+web:npm run start
