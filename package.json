@@ -2,7 +2,7 @@
   "name": "mobile_buka_food_ordering_app",
   "version": "1.0.0",
   "description": "mobile buka ordering app",
-  "main": "starter.js",
+  "main": "server.js",
   "babel": {
     "presets": [
       "env"
@@ -12,7 +12,7 @@
     "test": "mocha --require babel-core/register index.test.js --timeout 500000 --exit",
     "cover": "istanbul cover _mocha",
     "babel-node": "babel-node --presets=env",
-    "start": "nodemon --exec npm run babel-node -- ./api/server.js",
+    "start": "npm run babel-node -- ./api/server.js",
     "build": "babel src -d dist"
   },
   "repository": {
