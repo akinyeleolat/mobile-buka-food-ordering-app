@@ -6,6 +6,7 @@ import app from './api/server';
 import order from './api/model/orderModel';
 
 import orderItems from './api/model/orderedItemModel';
+import orderDetailItem from './api/model/orderDetails';
 
 const { expect } = chai;
 
@@ -24,7 +25,7 @@ describe('GET ALL ORDER /v1/order', () => {
       .end((err, res) => {
         expect(res.body).deep.equal({
           status: 'success',
-          order,
+          order: orderDetailItem,
           message: 'Retrieved all order',
         });
         if (err) done(err);
@@ -58,6 +59,7 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
     orderId = order.length - 1;
     const orderDetails = order.find(c => c.id === orderId);
     const orderItemDetails = orderItems.filter(obj => obj.orderId === orderId);
+    orderDetails.item = orderItemDetails;
     request
       .get(`/v1/order/${orderId}`)
       .expect(200)
@@ -65,8 +67,7 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
       .end((err, res) => {
         expect(res.body).deep.equal({
           status: 'success',
-          orderDetails,
-          orderItemDetails,
+          order: orderDetails,
           message: 'Retrieved single order',
         });
         if (err) done(err);
@@ -76,6 +77,7 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
   it('ORDER WITH VALID ID BUT NO ORDER ITEM should return  status 200', (done) => {
     orderId = order.length;
     const orderDetails2 = order.find(c => c.id === orderId);
+    orderDetails2.item = 'No item added to this order';
     request
       .get(`/v1/order/${orderId}`)
       .expect(200)
@@ -83,8 +85,7 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
       .end((err, res) => {
         expect(res.body).deep.equal({
           status: 'success',
-          orderDetails: orderDetails2,
-          orderItemDetails: 'No item added to this order',
+          order: orderDetails2,
           message: 'Retrieved single order',
         });
         if (err) done(err);
