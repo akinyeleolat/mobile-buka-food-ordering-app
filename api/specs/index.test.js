@@ -1,20 +1,20 @@
 
 import supertest from 'supertest';
 import chai from 'chai';
-import app from './api/server';
+import app from '../server';
 
-import order from './api/model/orderModel';
+import order from '../model/orderModel';
 
-import orderItems from './api/model/orderedItemModel';
-import orderDetailItem from './api/model/orderDetails';
+import orderItems from '../model/orderedItemModel';
+import orderDetailItem from '../model/orderDetails';
 
 const { expect } = chai;
 
 
 const request = supertest.agent(app);
 
-const customerName = 'test';
-const deliveryAddress = 'CA Test';
+const newCustomerName = 'test';
+const newDeliveryAddress = 'CA Test';
 const { id } = order;
 let orderId = id;
 describe('GET ALL ORDER /v1/order', () => {
@@ -102,15 +102,16 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
 describe('POST ORDER /v1/order', () => {
   const newOrder = {
     id: order.length + 1,
-    customerName,
-    deliveryAddress,
+    customerName: newCustomerName,
+    deliveryAddress: newDeliveryAddress,
     Accepted: false,
     orderStatus: 'Not Accepted',
   };
   it('EMPTY ORDER DATA should return status 404', (done) => {
+    const emptyOrder = {};
     request
       .post('/v1/order')
-      .send({})
+      .send(emptyOrder)
       .expect(400)
       .end((err, res) => {
         expect(res.body).deep.equal({
@@ -176,12 +177,15 @@ describe('POST ORDER ITEMS /v1/order/:id', () => {
   });
   it('VALID ORDER ITEMS WITH VALID ORDER ID should return status 201', (done) => {
     orderId = order.length - 1;
+    const newItemName = 'testItem';
+    const newItemPrice = 200;
+    const newQuantity = 25;
     const newOrderItems = {
       id: orderItems.length + 1,
       orderId,
-      itemName: 'testItem',
-      itemPrice: Number('200'),
-      quantity: Number('25'),
+      itemName: newItemName,
+      itemPrice: Number(newItemPrice),
+      quantity: Number(newQuantity),
     };
     request
       .post(`/v1/order/${orderId}`)
