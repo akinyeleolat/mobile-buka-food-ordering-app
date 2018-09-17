@@ -1,18 +1,17 @@
-
 import order from '../model/orderModel';
-
 import orderItems from '../model/orderedItemModel';
+import orderDetailItem from '../model/orderDetails';
 
 
 export const getAllOrder = (req, res) => {
   res.status(200).send({
     status: 'success',
-    order,
+    order: orderDetailItem,
     message: 'Retrieved all order',
   });
 };
 export const getSelectedOrder = (req, res) => {
-// receive params
+  // receive params
   const { id } = req.params;
   const orderId = Number(id);
   const orderDetails = order.find(c => c.id === orderId);
@@ -26,19 +25,18 @@ export const getSelectedOrder = (req, res) => {
   // find the orderItems that has the order id
   const orderItemDetails = orderItems.filter(obj => obj.orderId === orderId);
   if (orderItemDetails.length < 1) {
+    orderDetails.item = 'No item added to this order';
     res.status(200).send({
       status: 'success',
-      orderDetails,
-      orderItemDetails: 'No item added to this order',
+      order: orderDetails,
       message: 'Retrieved single order',
     });
     return;
   }
-  // add cost and get Total order cost
+  orderDetails.item = orderItemDetails;
   res.status(200).send({
     status: 'success',
-    orderDetails,
-    orderItemDetails,
+    order: orderDetails,
     message: 'Retrieved single order',
   });
 };
