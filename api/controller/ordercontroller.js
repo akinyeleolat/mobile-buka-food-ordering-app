@@ -3,6 +3,10 @@ import order from '../model/orderModel';
 import orderItems from '../model/orderedItemModel';
 import * as valid from '../middleware/validate';
 
+/**
+ * This function gets all order.
+ * @returns {object} all order and order items in a single response.
+ */
 export const getAllOrder = (req, res) => {
   res.status(200).send({
     status: 'success',
@@ -10,6 +14,12 @@ export const getAllOrder = (req, res) => {
     message: 'Retrieved all order',
   });
 };
+
+/**
+ * This function get selected order.
+ * @param {number} orderId any number
+ * @returns {objects} order and order items base on the orderId.
+ */
 export const getSelectedOrder = (req, res) => {
   // receive params
   const { id } = req.params;
@@ -40,6 +50,13 @@ export const getSelectedOrder = (req, res) => {
     message: 'Retrieved single order',
   });
 };
+
+/**
+ * This function creates order .
+ * @param {string} customerName any string
+ * @param {string} deliveryAddress any string
+ * @returns {objects} order data
+ */
 export const createOrder = (req, res) => {
   const { customerName, deliveryAddress } = req.body;
   if ((!customerName) || (!deliveryAddress)) {
@@ -70,6 +87,14 @@ export const createOrder = (req, res) => {
     message: 'order created, add order items',
   });
 };
+
+/**
+ * This function creates order items .
+ * @param {string} itemName any string
+ * @param {number} itemPrice any number
+* @param {number} quantity any number
+ * @returns {objects} order items data
+ */
 export const createOrderItems = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);
@@ -122,6 +147,12 @@ export const createOrderItems = (req, res) => {
     message: `order items created added to order ${orderId} `,
   });
 };
+
+/**
+ * This function accepts order.
+ * @param {number} orderId any number
+ * @returns {object} order with the id.
+ */
 export const AcceptOrder = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);
@@ -151,6 +182,12 @@ export const AcceptOrder = (req, res) => {
     message: 'order accepted',
   });
 };
+
+/**
+ * This function marks order as complete.
+ * @param {number} orderId any number
+ * @returns {objects} that order data base on orderId.
+ */
 export const CompleteOrder = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);

@@ -1,4 +1,8 @@
 
+/**
+ * This function handles the order item data
+ * @returns {object} order item.
+ */
 const fetchorderItems = () => {
   const orderItems = [
     {

@@ -1,5 +1,8 @@
 
-
+/**
+ * This function handles the order data
+ * @returns {object} order.
+ */
 const fetchorder = () => {
   const order = [
     {
