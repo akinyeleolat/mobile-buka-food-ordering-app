@@ -59,18 +59,18 @@ export const getSelectedOrder = (req, res) => {
  */
 export const createOrder = (req, res) => {
   const { customerName, deliveryAddress } = req.body;
-  if ((!customerName) || (!deliveryAddress)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'customer name and/or delivery address cannot be blank',
-    });
-  }
-  if (valid.checkSpace(customerName) || valid.checkSpace(deliveryAddress)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'customer name and/or delivery address cannot be blank',
-    });
-  }
+  // if ((!customerName) || (!deliveryAddress)) {
+  //   return res.status(400).send({
+  //     status: 'Blank Data',
+  //     message: 'customer name and/or delivery address cannot be blank',
+  //   });
+  // }
+  // if (valid.checkSpace(customerName) || valid.checkSpace(deliveryAddress)) {
+  //   return res.status(400).send({
+  //     status: 'Blank Data',
+  //     message: 'customer name and/or delivery address cannot be blank',
+  //   });
+  // }
   const newCustomerName = customerName.trim();
   const newDeliveryAddress = deliveryAddress.trim();
   const newOrder = {
@@ -106,24 +106,24 @@ export const createOrderItems = (req, res) => {
     });
   }
   const { itemName, itemPrice, quantity } = req.body;
-  if ((!itemName) || (!itemPrice) || (!quantity)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'item name, item price and/or quantity cannot be blank',
-    });
-  }
-  if (valid.checkSpace(itemName)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'item name, item price and/or quantity cannot be blank',
-    });
-  }
-  if (!valid.checkNumber(itemPrice) || !valid.checkNumber(quantity)) {
-    return res.status(400).send({
-      status: 'Invalid Data',
-      message: 'Item price and/or quantity must be a number and also not zero',
-    });
-  }
+  // if ((!itemName) || (!itemPrice) || (!quantity)) {
+  //   return res.status(400).send({
+  //     status: 'Blank Data',
+  //     message: 'item name, item price and/or quantity cannot be blank',
+  //   });
+  // }
+  // if (valid.checkSpace(itemName)) {
+  //   return res.status(400).send({
+  //     status: 'Blank Data',
+  //     message: 'item name, item price and/or quantity cannot be blank',
+  //   });
+  // }
+  // if (!valid.checkNumber(itemPrice) || !valid.checkNumber(quantity)) {
+  //   return res.status(400).send({
+  //     status: 'Invalid Data',
+  //     message: 'Item price and/or quantity must be a number and also not zero',
+  //   });
+  // }
   const newItemName = itemName.trim();
   const newItemPrice = itemPrice;
   const newQuantity = quantity;
