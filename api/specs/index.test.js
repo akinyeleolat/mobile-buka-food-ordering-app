@@ -104,7 +104,6 @@ describe('POST ORDER /v1/order', () => {
     id: order.length + 1,
     customerName: newCustomerName,
     deliveryAddress: newDeliveryAddress,
-    Accepted: false,
     orderStatus: 'Not Accepted',
   };
   it('EMPTY ORDER DATA should return status 404', (done) => {
