@@ -18,6 +18,7 @@
       <nav>
         <ul>
           <li><a href="cart.html"><img src="./img/icons/icon-16-help-shop.png" width="30px"></a></li>
+          <li><a href="./order.html"><button class="button_1">Make New Order</button></a></li>
         </ul>
       </nav>
     </div>
@@ -26,10 +27,10 @@
     <div class="container">
       <div id="mySidepanel" class="sidepanel">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a href=""><img src="./img/icons/icon_edit.png">Add/Edit Delivery Address</a>
+        <a href="#"><img src="./img/icons/icon-configure.png">Edit Profile</a>
+        <a href="./order.html"><img src="./img/icons/icon-16-new.png">Make New Order</a>
+        <a href="./index.html"><img src="./img/icons/icon-16-deny.png">Sign Out</a>
       </div>
       <button class="openbtn" onclick="openNav()">☰ <img src="./img/icons/icon_users.png">Welcome, Oluwatosin </button>
 
@@ -39,9 +40,8 @@
       </form>
     </div>
   </section>
-  <section id="order">
+  <section id="order" style="background-color: #e8491d">
     <div class="container">
-      <h1><span class="highlight">Hot Offer</span></h1>
       <div class="box">
         <h3>Chicken and Burger</h3>
         <img src="./img/original.jpg">
@@ -57,27 +57,6 @@
         <p><button class="button_1">Add to Cart</button></p>
       </div>
       <div class="box">
-        <h3>Marinated Beef and Chips</h3>
-        <img src="./img/Marinated Beef and Chips.jpg">
-        <p>Marinated Beef and Chips</p>
-        <h4>N2,500</h4>
-        <p><button class="button_1">Add to Cart</button></p>
-      </div>
-      <div class="box">
-        <h3>Pappas Fritas</h3>
-        <img src="./img/papas-fritas.png">
-        <p>Asian Pappas Fritas Cuisine</p>
-        <h4>N3,500</h4>
-        <p><button class="button_1">Add to Cart</button></p>
-      </div>
-      <div class="box">
-        <h3>Chips and Burger</h3>
-        <img src="./img/unnamed.jpg">
-        <p>Complete Burger and Chicken Meal</p>
-        <h4>N2,500</h4>
-        <p><button class="button_1">Add to Cart</button></p>
-      </div>
-      <div class="box">
         <h3>Fried Rice and Chicken</h3>
         <img src="./img/fried-rice-5.jpg">
         <p>Fried Rice and Chicken</p>
@@ -89,32 +68,8 @@
   <section id="order">
     <div class="container">
       <div class="tab">
-        <button class="tablinks" onclick="openOrder(event, 'New')">New Order</button>
         <button class="tablinks" onclick="openOrder(event, 'Ongoing')">Ongoing Order</button>
         <button class="tablinks" onclick="openOrder(event, 'Past')">Past Order</button>
-      </div>
-      <div id="New" class="tabcontent">
-        <div class="box">
-          <h3>Chicken and Burger</h3>
-          <img src="./img/original.jpg">
-          <p>Complete Burger and Chicken Meal</p>
-          <h4>N2,500</h4>
-          <p><button class="button_1">Add to Cart</button></p>
-        </div>
-        <div class="box">
-          <h3>Footlong Buffalo Chicken</h3>
-          <img src="./img/footlong-buffalo-chicken.jpg">
-          <p>Footlong Buffalo Chicken</p>
-          <h4>N1,500</h4>
-          <p><button class="button_1">Add to Cart</button></p>
-        </div>
-        <div class="box">
-          <h3>Marinated Beef and Chips</h3>
-          <img src="./img/Marinated Beef and Chips.jpg">
-          <p>Marinated Beef and Chips</p>
-          <h4>N2,500</h4>
-          <p><button class="button_1">Add to Cart</button></p>
-        </div>
       </div>
       <div id="Ongoing" class="tabcontent">
         <h3>Paris</h3>

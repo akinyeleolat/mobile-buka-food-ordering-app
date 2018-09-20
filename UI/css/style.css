@@ -152,12 +152,15 @@ header .highlight,section .highlight, header .current a{
 }
 /* order*/
 #order{
-    margin-top:20px;
+    margin-top:0;
+    border-bottom: 1px solid #e8491d;
 }
 #order h1{
     text-align: center;
 }
 #order .box{
+    margin: auto 20px;
+    margin-top:20px;
     float:left;
     text-align:center;
     width:30%;
@@ -355,12 +358,13 @@ footer{
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: #fff;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
     background-color: inherit;
+    color:#e8491d;
     float: left;
     border: none;
     outline: none;
@@ -372,12 +376,15 @@ footer{
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color:#e8491d;
+    color: #fff;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #ccc;
+    background-color: #fff;
+    color: #e8491d;
+    border-bottom: 1px solid #e8491d;
 }
 
 /* Style the tab content */
@@ -386,6 +393,8 @@ footer{
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+    width: auto;
+    background-color:#fff;
 }
 /* Modal Window */
 /* The Modal (background) */
@@ -438,7 +447,6 @@ footer{
     background-color:#35424a;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
 }
 
 .sidepanel a {
@@ -484,7 +492,8 @@ footer{
     #order .box,
     #boxes .box,
     article#main_col,
-    aside#sidebar,.button_1{
+    aside#sidebar,.button_1,
+    .tab .button_1:hover{
         float:none;
         text-align:center;
         width:100%;
