@@ -65,11 +65,14 @@ export const createOrder = (req, res) => {
 /**
  * This function update order.
  * @param {number} orderId any number
+ * @param {string} orderStatus Processing, Pending, Complete, Cancel
  * @returns {objects} that order data base on orderId.
  */
 export const updateOrder = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);
+  const { orderStatus } = req.body;
+  const newStatus = orderStatus;
   const orderDetails = order.find(c => c.id === orderId);
   if (!orderDetails) {
     res.status(404).send({
@@ -79,7 +82,7 @@ export const updateOrder = (req, res) => {
     return;
   }
   const { customerName, deliveryAddress, item } = orderDetails;
-  if (orderDetails.orderStatus !== 'In progress') {
+  if (orderDetails.orderStatus !== newStatus) {
     // 
     const arrayIndex = orderId - 1;
     // const { customerName, deliveryAddress, item } = orderDetails;
@@ -87,29 +90,19 @@ export const updateOrder = (req, res) => {
       id: orderId,
       customerName,
       deliveryAddress,
-      orderStatus: 'In progress',
+      orderStatus: newStatus,
       item,
     };
     order[arrayIndex] = newOrder;
     res.status(201).send({
       status: 'success',
       newOrder,
-      message: 'order accepted',
+      message: `order with id ${orderId} is ${newStatus}`,
     });
     return;
   }
-  const arrayIndex = orderId - 1;
-  const newOrder = {
-    id: orderId,
-    customerName,
-    deliveryAddress,
-    orderStatus: 'Completed',
-    item,
-  };
-  order[arrayIndex] = newOrder;
-  res.status(201).send({
-    status: 'success',
-    newOrder,
-    message: 'order accepted',
+  res.status(400).send({
+    status: 'Failed',
+    message: `order with id ${orderId} is already ${newStatus}`,
   });
 };
