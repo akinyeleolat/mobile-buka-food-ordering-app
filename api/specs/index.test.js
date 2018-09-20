@@ -269,11 +269,11 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
         done();
       });
   });
-  it('VALID ORDER WITH VALID ID should return  status 201', (done) => {
+  it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
     orderId = order.length - 1;
     request
       .put(`/api/v1/orders/${orderId}`)
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });

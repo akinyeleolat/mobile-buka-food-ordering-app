@@ -94,7 +94,7 @@ export const updateOrder = (req, res) => {
       item,
     };
     order[arrayIndex] = newOrder;
-    res.status(201).send({
+    res.status(200).send({
       status: 'success',
       newOrder,
       message: `order with id ${orderId} is ${newStatus}`,
