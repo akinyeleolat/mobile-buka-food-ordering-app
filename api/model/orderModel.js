@@ -30,6 +30,10 @@ const fetchorder = () => {
       customerName: 'Adebisi Felicia',
       deliveryAddress: 'CA 60, Ambrose Street,Allen',
       orderStatus: 'Not Accepted',
+      item: [
+        { itemName: 'Hamburger', itemPrice: 250, quantity: 20 },
+        { itemName: 'Chicken Kebash', itemPrice: 250, quantity: 25 },
+      ],
     },
   ];
   return order;
