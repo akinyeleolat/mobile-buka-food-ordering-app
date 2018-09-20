@@ -1,17 +1,24 @@
 import order from '../model/orderModel';
-import orderItems from '../model/orderedItemModel';
-import orderDetailItem from '../model/orderDetails';
 
 
+/**
+ * This function gets all order.
+ * @returns {object} all order and order items in a single response.
+ */
 export const getAllOrder = (req, res) => {
-  res.status(200).send({
+  return res.status(200).send({
     status: 'success',
-    order: orderDetailItem,
+    order,
     message: 'Retrieved all order',
   });
 };
+
+/**
+ * This function get selected order.
+ * @param {number} orderId any number
+ * @returns {objects} order and order items base on the orderId.
+ */
 export const getSelectedOrder = (req, res) => {
-  // receive params
   const { id } = req.params;
   const orderId = Number(id);
   const orderDetails = order.find(c => c.id === orderId);
@@ -22,39 +29,32 @@ export const getSelectedOrder = (req, res) => {
     });
     return;
   }
-  // find the orderItems that has the order id
-  const orderItemDetails = orderItems.filter(obj => obj.orderId === orderId);
-  if (orderItemDetails.length < 1) {
-    orderDetails.item = 'No item added to this order';
-    res.status(200).send({
-      status: 'success',
-      order: orderDetails,
-      message: 'Retrieved single order',
-    });
-    return;
-  }
-  orderDetails.item = orderItemDetails;
   res.status(200).send({
     status: 'success',
     order: orderDetails,
     message: 'Retrieved single order',
   });
 };
+
+/**
+ * This function creates order .
+ * @param {string} customerName any string
+ * @param {string} deliveryAddress any string
+ * @param {object} item any string
+ * @returns {objects} order data
+ */
 export const createOrder = (req, res) => {
-  const { customerName, deliveryAddress } = req.body;
+  const { customerName, deliveryAddress, item } = req.body;
+  const newCustomerName = customerName.trim();
+  const newDeliveryAddress = deliveryAddress.trim();
+  const newItem = item;
   const newOrder = {
     id: order.length + 1,
-    customerName,
-    deliveryAddress,
-    Accepted: false,
-    orderStatus: 'Not Accepted',
+    customerName: newCustomerName,
+    deliveryAddress: newDeliveryAddress,
+    orderStatus: 'New',
+    item: newItem,
   };
-  if ((!customerName) || (!deliveryAddress)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'customer name and/or delivery address cannot be blank',
-    });
-  }
   order.push(newOrder);
   return res.status(201).send({
     status: 'success',
@@ -62,40 +62,17 @@ export const createOrder = (req, res) => {
     message: 'order created, add order items',
   });
 };
-export const createOrderItems = (req, res) => {
+/**
+ * This function update order.
+ * @param {number} orderId any number
+ * @param {string} orderStatus Processing, Pending, Complete, Cancel
+ * @returns {objects} that order data base on orderId.
+ */
+export const updateOrder = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);
-  const orderDetails = order.find(c => c.id === orderId);
-  if (!orderDetails) {
-    return res.status(404).send({
-      status: 'failed',
-      message: 'The order with given id was not found',
-    });
-  }
-  const { itemName, itemPrice, quantity } = req.body;
-  const newOrderItems = {
-    id: orderItems.length + 1,
-    orderId,
-    itemName,
-    itemPrice: Number(itemPrice),
-    quantity: Number(quantity),
-  };
-  if ((!itemName) || (!itemPrice) || (!quantity)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'item name, item price and/or quantity cannot be blank',
-    });
-  }
-  orderItems.push(newOrderItems);
-  return res.status(201).send({
-    status: 'success',
-    newOrderItems,
-    message: `order items created added to order ${orderId} `,
-  });
-};
-export const AcceptOrder = (req, res) => {
-  const { id } = req.params;
-  const orderId = Number(id);
+  const { orderStatus } = req.body;
+  const newStatus = orderStatus;
   const orderDetails = order.find(c => c.id === orderId);
   if (!orderDetails) {
     res.status(404).send({
@@ -104,57 +81,28 @@ export const AcceptOrder = (req, res) => {
     });
     return;
   }
-  const arrayIndex = orderId - 1;
-  // console.log(arrayIndex);
-  const { customerName, deliveryAddress } = orderDetails;
-  const newOrder = {
-    id: orderId,
-    customerName,
-    deliveryAddress,
-    Accepted: true,
-    orderStatus: 'In progress',
-  };
-  order[arrayIndex] = newOrder;
-  // console.log(order[arrayIndex]);
-  res.status(201).send({
-    status: 'success',
-    newOrder,
-    message: 'order accepted',
-  });
-};
-export const CompleteOrder = (req, res) => {
-  const { id } = req.params;
-  const orderId = Number(id);
-  const orderDetails = order.find(c => c.id === orderId);
-  if (!orderDetails) {
-    res.status(404).send({
-      status: 'failed',
-      message: 'The order with given id was not found',
+  const { customerName, deliveryAddress, item } = orderDetails;
+  if (orderDetails.orderStatus !== newStatus) {
+    // 
+    const arrayIndex = orderId - 1;
+    // const { customerName, deliveryAddress, item } = orderDetails;
+    const newOrder = {
+      id: orderId,
+      customerName,
+      deliveryAddress,
+      orderStatus: newStatus,
+      item,
+    };
+    order[arrayIndex] = newOrder;
+    res.status(200).send({
+      status: 'success',
+      newOrder,
+      message: `order with id ${orderId} is ${newStatus}`,
     });
     return;
   }
-  const { customerName, deliveryAddress, Accepted } = orderDetails;
-  if (orderDetails.Accepted !== true) {
-    res.status(404).send({
-      status: 'failed',
-      message: 'The order has not been accepted',
-    });
-    return;
-  }
-  const arrayIndex = orderId - 1;
-  // console.log(arrayIndex);
-  const newOrder = {
-    id: orderId,
-    customerName,
-    deliveryAddress,
-    Accepted,
-    orderStatus: 'Completed',
-  };
-  order[arrayIndex] = newOrder;
-  // console.log(order[arrayIndex]);
-  res.status(201).send({
-    status: 'success',
-    newOrder,
-    message: 'order accepted',
+  res.status(400).send({
+    status: 'Failed',
+    message: `order with id ${orderId} is already ${newStatus}`,
   });
 };
