@@ -127,6 +127,26 @@ describe('POST ORDER /v1/order', () => {
       customerName: 'Adebisi Felicia',
       deliveryAddress: 'CA 60, Ambrose Street,Allen',
       orderStatus: 'Not Accepted',
+      item: [],
+    };
+    request
+      .post('/v1/order')
+      .send(newOrder3)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: 'item cannot be Empty',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY ORDER ITEM  should return status 400', (done) => {
+    const newOrder3 = {
+      customerName: 'Adebisi Felicia',
+      deliveryAddress: 'CA 60, Ambrose Street,Allen',
+      orderStatus: 'Not Accepted',
       item: [
         { itemName: ' ', itemPrice: 230, quantity: 23 }
       ],
@@ -166,8 +186,30 @@ describe('POST ORDER /v1/order', () => {
         done();
       });
   });
-  it('PRICE AND QUANTITY ON ORDER ITEM  that is  zero should return status 400', (done) => {
+  it('ITEM NAME that is not an alphabet should return status 400', (done) => {
     const newOrder5 = {
+      customerName: 'Adebisi Felicia',
+      deliveryAddress: 'CA 60, Ambrose Street,Allen',
+      orderStatus: 'Not Accepted',
+      item: [
+        { itemName: 123, itemPrice: 250, quantity: 23 },
+      ],
+    };
+    request
+      .post('/v1/order')
+      .send(newOrder5)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: 'item name must be an alphabet',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('PRICE AND QUANTITY ON ORDER ITEM  that is  zero should return status 400', (done) => {
+    const newOrder6 = {
       customerName: 'Adebisi Felicia',
       deliveryAddress: 'CA 60, Ambrose Street,Allen',
       orderStatus: 'Not Accepted',
@@ -177,7 +219,7 @@ describe('POST ORDER /v1/order', () => {
     };
     request
       .post('/v1/order')
-      .send(newOrder5)
+      .send(newOrder6)
       .expect(400)
       .end((err, res) => {
         expect(res.body).deep.equal({

@@ -14,6 +14,12 @@ export const validateOrderInput = (req, res, next) => {
       message: 'customer name and/or delivery address cannot be blank',
     });
   }
+  if (item.length < 1) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: 'item cannot be Empty',
+    });
+  }
   let msg = '';
   for (let key = 0; key < item.length; key++) {
     const { itemName, itemPrice, quantity } = item[key];
@@ -28,6 +34,13 @@ export const validateOrderInput = (req, res, next) => {
       msg = {
         status: 'Blank Data',
         message: 'item name, item price and/or quantity cannot be blank',
+      };
+      return res.status(400).send(msg);
+    }
+    if (!valid.checkString(itemName)) {
+      msg = {
+        status: 'Invalid Data',
+        message: 'item name must be an alphabet',
       };
       return res.status(400).send(msg);
     }

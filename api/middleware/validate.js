@@ -20,6 +20,17 @@ export const checkNumber = (value) => {
     return true;
   }
 };
+/**
+ * This function check if the value is a string.
+ * @param {string} value any
+ * @returns {boolean} true or false.
+ */
+export const checkString = (value) => {
+  // .toLowerCase()
+  if (String(value).match(/[a-z]/g)) {
+    return true;
+  }
+};
 
 /**
  * This function check if the value is a valid email.
