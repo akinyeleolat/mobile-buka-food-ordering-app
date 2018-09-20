@@ -211,7 +211,7 @@ describe('POST ORDER /v1/order', () => {
       .end(done);
   });
 });
-describe('PUT/ACCEPT ORDER /v1/order/:id', () => {
+describe('PUT/UPDATE ORDER /v1/order/:id', () => {
   it('ORDER WITH NO VALID ID should return  status 404', (done) => {
     orderId = order.length + 1;
     request

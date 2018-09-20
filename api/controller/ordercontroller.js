@@ -62,46 +62,12 @@ export const createOrder = (req, res) => {
     message: 'order created, add order items',
   });
 };
-
 /**
- * This function accepts order.
- * @param {number} orderId any number
- * @returns {object} order with the id.
- */
-export const AcceptOrder = (req, res) => {
-  const { id } = req.params;
-  const orderId = Number(id);
-  const orderDetails = order.find(c => c.id === orderId);
-  if (!orderDetails) {
-    res.status(404).send({
-      status: 'failed',
-      message: 'The order with given id was not found',
-    });
-    return;
-  }
-  const arrayIndex = orderId - 1;
-  const { customerName, deliveryAddress, item } = orderDetails;
-  const newOrder = {
-    id: orderId,
-    customerName,
-    deliveryAddress,
-    orderStatus: 'In progress',
-    item,
-  };
-  order[arrayIndex] = newOrder;
-  res.status(201).send({
-    status: 'success',
-    newOrder,
-    message: 'order accepted',
-  });
-};
-
-/**
- * This function marks order as complete.
+ * This function update order.
  * @param {number} orderId any number
  * @returns {objects} that order data base on orderId.
  */
-export const CompleteOrder = (req, res) => {
+export const updateOrder = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);
   const orderDetails = order.find(c => c.id === orderId);
@@ -114,9 +80,21 @@ export const CompleteOrder = (req, res) => {
   }
   const { customerName, deliveryAddress, item } = orderDetails;
   if (orderDetails.orderStatus !== 'In progress') {
-    res.status(404).send({
-      status: 'failed',
-      message: 'The order has not been accepted',
+    // 
+    const arrayIndex = orderId - 1;
+    // const { customerName, deliveryAddress, item } = orderDetails;
+    const newOrder = {
+      id: orderId,
+      customerName,
+      deliveryAddress,
+      orderStatus: 'In progress',
+      item,
+    };
+    order[arrayIndex] = newOrder;
+    res.status(201).send({
+      status: 'success',
+      newOrder,
+      message: 'order accepted',
     });
     return;
   }
