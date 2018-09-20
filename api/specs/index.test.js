@@ -18,10 +18,10 @@ const itemDetails = [
 ];
 const { id } = order;
 let orderId = id;
-describe('GET ALL ORDER /v1/order', () => {
+describe('GET ALL ORDER /api/v1/orders', () => {
   it('should return status 200', (done) => {
     request
-      .get('/v1/order')
+      .get('/api/v1/orders')
       .expect(200)
       .end((err, res) => {
         expect(res.body).deep.equal({
@@ -35,16 +35,16 @@ describe('GET ALL ORDER /v1/order', () => {
   });
   it('should return all order in JSON format', (done) => {
     request
-      .get('/v1/order')
+      .get('/api/v1/orders')
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
 });
-describe('GET SELECTED ORDER /v1/order/:id', () => {
+describe('GET SELECTED ORDER /api/v1/orders/:id', () => {
   it('ORDER WITH NO  VALID ID should return  status 404', (done) => {
     orderId = order.length + 1;
     request
-      .get(`/v1/order/${orderId}`)
+      .get(`/api/v1/orders/${orderId}`)
       .expect(404)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end((err, res) => {
@@ -60,7 +60,7 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
     orderId = order.length - 1;
     const orderDetails = order.find(c => c.id === orderId);
     request
-      .get(`/v1/order/${orderId}`)
+      .get(`/api/v1/orders/${orderId}`)
       .expect(200)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end((err, res) => {
@@ -75,12 +75,12 @@ describe('GET SELECTED ORDER /v1/order/:id', () => {
   });
   it('should return  selected order in JSON format', (done) => {
     request
-      .get(`/v1/order/${orderId}`)
+      .get(`/api/v1/orders/${orderId}`)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
 });
-describe('POST ORDER /v1/order', () => {
+describe('POST ORDER /api/v1/orders', () => {
   const newOrder = {
     id: order.length + 1,
     customerName: newCustomerName,
@@ -91,7 +91,7 @@ describe('POST ORDER /v1/order', () => {
   it('EMPTY ORDER DATA should return status 404', (done) => {
     const emptyOrder = {};
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(emptyOrder)
       .expect(400)
       .end((err, res) => {
@@ -110,7 +110,7 @@ describe('POST ORDER /v1/order', () => {
       orderStatus: 'Not Accepted',
     }
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder2)
       .expect(400)
       .end((err, res) => {
@@ -130,7 +130,7 @@ describe('POST ORDER /v1/order', () => {
       item: [],
     };
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder3)
       .expect(400)
       .end((err, res) => {
@@ -152,7 +152,7 @@ describe('POST ORDER /v1/order', () => {
       ],
     };
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder3)
       .expect(400)
       .end((err, res) => {
@@ -174,7 +174,7 @@ describe('POST ORDER /v1/order', () => {
       ],
     };
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder4)
       .expect(400)
       .end((err, res) => {
@@ -196,7 +196,7 @@ describe('POST ORDER /v1/order', () => {
       ],
     };
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder5)
       .expect(400)
       .end((err, res) => {
@@ -218,7 +218,7 @@ describe('POST ORDER /v1/order', () => {
       ],
     };
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder6)
       .expect(400)
       .end((err, res) => {
@@ -232,7 +232,7 @@ describe('POST ORDER /v1/order', () => {
   });
   it('ORDER WITH VALID PARAMETERS should return status 201', (done) => {
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder)
       .expect(201)
       .end((err, res) => {
@@ -247,17 +247,17 @@ describe('POST ORDER /v1/order', () => {
   });
   it('should return  order in JSON format', (done) => {
     request
-      .post('/v1/order')
+      .post('/api/v1/orders')
       .send(newOrder)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
 });
-describe('PUT/UPDATE ORDER /v1/order/:id', () => {
+describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
   it('ORDER WITH NO VALID ID should return  status 404', (done) => {
     orderId = order.length + 1;
     request
-      .get(`/v1/order/${orderId}`)
+      .get(`/api/v1/orders/${orderId}`)
       .expect(404)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end((err, res) => {
@@ -272,7 +272,7 @@ describe('PUT/UPDATE ORDER /v1/order/:id', () => {
   it('VALID ORDER WITH VALID ID should return  status 201', (done) => {
     orderId = order.length - 1;
     request
-      .put(`/v1/order/${orderId}`)
+      .put(`/api/v1/orders/${orderId}`)
       .expect(201)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
@@ -280,7 +280,7 @@ describe('PUT/UPDATE ORDER /v1/order/:id', () => {
   it('VALID ORDER WITH VALID ID should return  json format', (done) => {
     orderId = order.length - 1;
     request
-      .put(`/v1/order/${orderId}`)
+      .put(`/api/v1/orders/${orderId}`)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });

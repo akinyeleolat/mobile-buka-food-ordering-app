@@ -6,7 +6,7 @@ import orderRoutes from './routes/orderRoutes';
 const app = express();
 
 
-app.use('/v1/order', orderRoutes);
+app.use('/api/v1/orders', orderRoutes);
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

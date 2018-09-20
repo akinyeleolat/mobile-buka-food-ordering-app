@@ -64,22 +64,22 @@ run npm run start then navigate to localhost:3000 on POSTMAN
   </tr>
   <tr>
     <td>POST</td>
-    <td>v1/order/</td>
+    <td>api/v1/orders/</td>
     <td>Create An Order</td>
   </tr>
    <tr>
     <td>PUT</td>
-    <td>v1/order/orderId</td>
+    <td>api/v1/orders/orderId</td>
     <td>Update order status as Accepted</td>
   </tr>
   <tr>
     <td>GET</td>
-    <td>v1/order/</td>
+    <td>api/v1/orders/</td>
     <td>Get all order</td>
   </tr>
   <tr>
     <td>GET</td>
-    <td>v1/order/orderId</td>
+    <td>api/v1/orders/orderId</td>
     <td>Get selected order</td>
   </tr>
   </table>
