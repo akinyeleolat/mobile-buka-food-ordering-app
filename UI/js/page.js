@@ -43,6 +43,7 @@ function openOrder(evt, OrderName) {
   evt.currentTarget.className += " active";
 }
 
+
 // Toggle Side Panel
 function openNav() {
   document.getElementById("mySidepanel").style.width = "250px";

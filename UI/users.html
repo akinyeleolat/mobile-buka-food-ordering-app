@@ -40,8 +40,238 @@
       </form>
     </div>
   </section>
+  <section id="userOrder">
+    <div class="container">
+      <div class="tab">
+        <button class="tablinks" onclick="openOrder(event, 'Ongoing')" id="defaultOpen">Ongoing Order</button>
+        <button class="tablinks" onclick="openOrder(event, 'Past')">Past Order</button>
+      </div>
+      <div id="Ongoing" class="tabcontent">
+        <div class="card">
+          <img src="./img/icons/shipped.png">
+          <div class="cardcontainer">
+            <h3><b>Order Number: </b> 0100200</h3>
+            <p>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Item Name</th>
+                  <th>Price(N)</th>
+                  <th>Qty</th>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Chicken and Burger</td>
+                  <td>1,500</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Footlong Buffalo Chicken</td>
+                  <td>1,200</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Fried Rice and Chicken</td>
+                  <td>1,500</td>
+                  <td>5</td>
+                </tr>
+              </table>
+            </p>
+            <p><span style="float:left">Total: 12,000NGN</span> <span class="highlight" style="float:right">Pending</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./img/icons/shipped.png">
+          <div class="cardcontainer">
+            <h3><b>Order Number: </b> 0100200</h3>
+            <p>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Item Name</th>
+                  <th>Price(N)</th>
+                  <th>Qty</th>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Chicken and Burger</td>
+                  <td>1,500</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Footlong Buffalo Chicken</td>
+                  <td>1,200</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Fried Rice and Chicken</td>
+                  <td>1,500</td>
+                  <td>5</td>
+                </tr>
+              </table>
+            </p>
+            <p><span style="float:left">Total: 12,000NGN</span> <span class="highlight" style="float:right">Processing</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./img/icons/shipped.png">
+          <div class="cardcontainer">
+            <h3><b>Order Number: </b> 0100200</h3>
+            <p>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Item Name</th>
+                  <th>Price(N)</th>
+                  <th>Qty</th>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Chicken and Burger</td>
+                  <td>1,500</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Footlong Buffalo Chicken</td>
+                  <td>1,200</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Fried Rice and Chicken</td>
+                  <td>1,500</td>
+                  <td>5</td>
+                </tr>
+              </table>
+            </p>
+            <p><span style="float:left">Total: 12,000NGN</span> <span class="highlight" style="float:right">Completed</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="Past" class="tabcontent">
+        <div class="card">
+          <img src="./img/icons/shipped.png">
+          <div class="cardcontainer">
+            <h3><b>Order Number: </b> 0100200</h3>
+            <p>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Item Name</th>
+                  <th>Price(N)</th>
+                  <th>Qty</th>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Chicken and Burger</td>
+                  <td>1,500</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Footlong Buffalo Chicken</td>
+                  <td>1,200</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Fried Rice and Chicken</td>
+                  <td>1,500</td>
+                  <td>5</td>
+                </tr>
+              </table>
+            </p>
+            <p><span style="float:left">Total: 12,000NGN</span> <span class="highlight" style="float:right">Delivered</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./img/icons/shipped.png">
+          <div class="cardcontainer">
+            <h3><b>Order Number: </b> 0100200</h3>
+            <p>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Item Name</th>
+                  <th>Price(N)</th>
+                  <th>Qty</th>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Chicken and Burger</td>
+                  <td>1,500</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Footlong Buffalo Chicken</td>
+                  <td>1,200</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Fried Rice and Chicken</td>
+                  <td>1,500</td>
+                  <td>5</td>
+                </tr>
+              </table>
+            </p>
+            <p><span style="float:left">Total: 12,000NGN</span> <span class="highlight" style="float:right">Delivered</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./img/icons/shipped.png">
+          <div class="cardcontainer">
+            <h3><b>Order Number: </b> 0100200</h3>
+            <p>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Item Name</th>
+                  <th>Price(N)</th>
+                  <th>Qty</th>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Chicken and Burger</td>
+                  <td>1,500</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Footlong Buffalo Chicken</td>
+                  <td>1,200</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><img src="./img/original.jpg"></td>
+                  <td>Fried Rice and Chicken</td>
+                  <td>1,500</td>
+                  <td>5</td>
+                </tr>
+              </table>
+            </p>
+            <p><span style="float:left">Total: 12,000NGN</span> <span class="highlight" style="float:right">Delivered</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
   <section id="order" style="background-color: #e8491d">
     <div class="container">
+      <h1 style="color:#fff">Hot Offer</h1>
       <div class="box">
         <h3>Chicken and Burger</h3>
         <img src="./img/original.jpg">
@@ -65,25 +295,6 @@
       </div>
     </div>
   </section>
-  <section id="order">
-    <div class="container">
-      <div class="tab">
-        <button class="tablinks" onclick="openOrder(event, 'Ongoing')">Ongoing Order</button>
-        <button class="tablinks" onclick="openOrder(event, 'Past')">Past Order</button>
-      </div>
-      <div id="Ongoing" class="tabcontent">
-        <h3>Paris</h3>
-        <p>Paris is the capital of France.</p>
-      </div>
-
-      <div id="Past" class="tabcontent">
-        <h3>Tokyo</h3>
-        <p>Tokyo is the capital of Japan.</p>
-      </div>
-
-    </div>
-    </div>
-  </section>
   <section id="newsletter">
     <div class="container">
       <h1>Get Spices and Flavour Menu updates</h1>
@@ -97,6 +308,7 @@
     <p>Mobile Buka, Copyright &copy; 2018</p>
   </footer>
   <script src="./js/page.js"></script>
+  <script>document.getElementById("defaultOpen").click();</script>
 </body>
 
 </html>
