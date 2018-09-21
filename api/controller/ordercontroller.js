@@ -72,7 +72,7 @@ export const updateOrder = (req, res) => {
   const { id } = req.params;
   const orderId = Number(id);
   const { orderStatus } = req.body;
-  const newStatus = orderStatus;
+  const newStatus = orderStatus.toLowerCase().trim();
   const orderDetails = order.find(c => c.id === orderId);
   if (!orderDetails) {
     res.status(404).send({
@@ -83,20 +83,18 @@ export const updateOrder = (req, res) => {
   }
   const { customerName, deliveryAddress, item } = orderDetails;
   if (orderDetails.orderStatus !== newStatus) {
-    // 
     const arrayIndex = orderId - 1;
-    // const { customerName, deliveryAddress, item } = orderDetails;
-    const newOrder = {
+    const updateOrder = {
       id: orderId,
       customerName,
       deliveryAddress,
       orderStatus: newStatus,
       item,
     };
-    order[arrayIndex] = newOrder;
+    order[arrayIndex] = updateOrder;
     res.status(200).send({
       status: 'success',
-      newOrder,
+      updateOrder,
       message: `order with id ${orderId} is ${newStatus}`,
     });
     return;

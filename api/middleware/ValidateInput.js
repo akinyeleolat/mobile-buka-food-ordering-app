@@ -54,4 +54,34 @@ export const validateOrderInput = (req, res, next) => {
   }
   next();
 };
-export default validateOrderInput;
+export const validateOrderStatus = (req, res, next) => {
+  let { orderStatus } = req.body;
+  console.log(typeof orderStatus)
+  orderStatus = orderStatus.toLowerCase().trim()
+  if (!orderStatus) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: 'orderStatus cannot be blank',
+    });
+  }
+  if (valid.checkSpace(orderStatus)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: 'orderStatus cannot be blank',
+    });
+  }
+  if (!valid.checkString(orderStatus)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: 'orderStatus must be an alphabet',
+    });
+  }
+  if (['new', 'processing', 'pending', 'cancel', 'complete'].indexOf(orderStatus) < 0) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: 'incorrect orderStatus value',
+    });
+  }
+  next();
+};
+// export default validateOrderInput;

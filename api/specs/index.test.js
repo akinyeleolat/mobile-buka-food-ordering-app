@@ -271,16 +271,20 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
   });
   it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
     orderId = order.length - 1;
+    const newStatus = { orderStatus: 'Processing' };
     request
       .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
       .expect(200)
-      .expect('Content-Type', 'application/json; charset=utf-8')
+      // .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
   it('VALID ORDER WITH VALID ID should return  json format', (done) => {
     orderId = order.length - 1;
+    const newStatus = { orderStatus: 'Processing' };
     request
       .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
