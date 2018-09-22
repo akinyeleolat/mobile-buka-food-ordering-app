@@ -164,6 +164,28 @@ describe('POST ORDER /api/v1/orders', () => {
         done();
       });
   });
+  it('EMPTY ORDER ITEM  should return status 400', (done) => {
+    const newOrder3 = {
+      customerName: 'Adebisi Felicia',
+      deliveryAddress: 'CA 60, Ambrose Street,Allen',
+      orderStatus: 'Not Accepted',
+      item: [
+        { itemName: '', itemPrice: 230, quantity: 23 }
+      ],
+    };
+    request
+      .post('/api/v1/orders')
+      .send(newOrder3)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: 'item name, item price and/or quantity cannot be blank',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
   it('PRICE AND QUANTITY ON ORDER ITEM  that is not Number should return status 400', (done) => {
     const newOrder4 = {
       customerName: 'Adebisi Felicia',
@@ -298,7 +320,27 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
       .expect(200)
-      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
+    orderId = order.length - 1;
+    const newStatus = { orderStatus: 'pending' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
+    orderId = order.length - 1;
+    const newStatus = { orderStatus: 'COMPLETE' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
   it('VALID ORDER WITH VALID ID with empty string should return  status 400', (done) => {
@@ -308,7 +350,7 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
       .expect(400)
-      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
   it('VALID ORDER WITH VALID ID with empty space should return  status 400', (done) => {
@@ -318,7 +360,7 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
       .expect(400)
-      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
   it('VALID ORDER WITH VALID ID with no string data should return  status 400', (done) => {
@@ -328,7 +370,7 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
       .expect(400)
-      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
   it('VALID ORDER WITH VALID ID with no valid values return  status 400', (done) => {
@@ -338,7 +380,18 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
       .expect(400)
-      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID with same orderStatus return  status 400', (done) => {
+    orderId = order.length - 1;
+    const orderDetails = order.find(c => c.id === orderId);
+    const newStatus = { orderStatus: orderDetails.orderStatus };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(400)
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
   it('VALID ORDER WITH VALID ID should return  json format', (done) => {

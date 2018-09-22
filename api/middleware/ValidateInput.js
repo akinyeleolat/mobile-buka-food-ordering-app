@@ -56,7 +56,6 @@ export const validateOrderInput = (req, res, next) => {
 };
 export const validateOrderStatus = (req, res, next) => {
   let { orderStatus } = req.body;
-  console.log(typeof orderStatus)
   orderStatus = orderStatus.toLowerCase().trim()
   if (!orderStatus) {
     return res.status(400).send({
