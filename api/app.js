@@ -13,18 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 
 app.use((req, res, next) => {
-  const error = new Error('Welcome to mobile Buka, the required resource not found');
-  error.status = 404;
-  res.send(error);
-  next(error);
-});
-
-app.use((error, req, res) => {
-  res.status(error.status);
-  res.send({
+  const error = 'Welcome to mobile Buka, the required resource not found';
+  res.status(404).send({
     error: {
-      message: error.message,
+      message: error,
     },
-  });
+  })
+  next();
 });
 export default app;
