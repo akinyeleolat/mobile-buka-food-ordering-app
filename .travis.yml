@@ -8,4 +8,17 @@ script:
   - npm test
 after_success:
   - npm run coverage
+ env:
+  global:
+    - CC_TEST_REPORTER_ID=6752b5321b9203b49cfe0aeec18c7bdf5bd6eb721bd05857f23dac9df77cb25a
 
+rvm:
+  - 2.2.0
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rspec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
