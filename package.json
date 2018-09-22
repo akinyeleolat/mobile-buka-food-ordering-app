@@ -9,10 +9,8 @@
     ]
   },
   "scripts": {
-    "test": "mocha --require babel-core/register ./api/specs/index.test.js --timeout 500000 --exit",
-    "cover": "istanbul cover ./api/index.test.js",
-    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover _mocha ./api/index.test.js",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "test": "nyc mocha --require babel-core/register ./api/specs/index.test.js --timeout 500000 --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "babel-node": "babel-node --presets=env",
     "start": "babel-node -- ./api/server.js",
     "start:dev": "nodemon --exec npm run babel-node -- ./api/server.js",
@@ -47,6 +45,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "supertest": "^3.1.0",
+    "nyc":"^13.0.1",
     "webpack": "^4.16.5"
   },
   "keywords": [
