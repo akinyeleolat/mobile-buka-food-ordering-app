@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title> Mobile Buka | Welcome </title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <h1><img src="img/order.gif" width="50px"><span class="highlight">Mobile Buka</span> Naija</h1>
+      </div>
+    </div>
+  </header>
+  <main class="content">
+    <section id="newsletter">
+      <div class="container">
+        <div id="mySidepanel" class="sidepanel">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+          <a href=""><img src="./img/icons/icon_edit.png">Add/Edit Menu</a>
+          <a href="#"><img src="./img/icons/icon-configure.png">Edit User Profile</a>
+          <a href="./order.html"><img src="./img/icons/icon-16-new.png">Manage Order</a>
+          <a href="./index.html"><img src="./img/icons/icon-16-deny.png">Sign Out</a>
+        </div>
+        <button class="openbtn" onclick="openNav()">☰ <img src="./img/icons/icon_users.png">Welcome, Admin </button>
+
+        <form>
+          <input type="text" placeholder="Search Order" />
+          <button type="submit" class="button_1">Search</button>
+        </form>
+      </div>
+    </section>
+    <section id="userOrder">
+      <div class="container">
+        <div class="tab">
+          <button class="tablinks" onclick="openOrder(event, 'New')" id="defaultOpen">New Order</button>
+          <button class="tablinks" onclick="openOrder(event, 'Cancel')">Cancel Order</button>
+          <button class="tablinks" onclick="openOrder(event, 'Pending')">Pending Order</button>
+          <button class="tablinks" onclick="openOrder(event, 'Processing')">Processing Order</button>
+          <button class="tablinks" onclick="openOrder(event, 'Complete')">Complete Order</button>
+        </div>
+        <div id="New" class="tabcontent">
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="Pending" class="tabcontent">
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab" selected>Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab" selected>Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab" selected>Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="Cancel" class="tabcontent">
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="Processing" class="tabcontent">
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="Complete" class="tabcontent">
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./img/icons/shipped.png">
+            <div class="cardcontainer">
+              <h3><b>Order Number: </b> 0100200</h3>
+              <p>
+                <table>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                  <tr>
+                    <td>Full Name: Adesola James</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address: 50, CA, Ikoyi, Lagos</td>
+                  </tr>
+                  <tr>
+                    <td>Email: adesolajames@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number: +2347032679325</td>
+                  </tr>
+                  <tr>
+                    <td>Order Created: 26/09/2018 18:00</td>
+                  </tr>
+                  <tr>
+                    <td>Order Total: <span class="highlight">12,000NGN</span></td>
+                  </tr>
+                  <tr>
+                    <td>Order Status: <span class="highlight">New</span></td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <table>
+                  <tr>
+                    <th></th>
+                    <th>Item Name</th>
+                    <th>Price(N)</th>
+                    <th>Qty</th>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Chicken and Burger</td>
+                    <td>1,500</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Footlong Buffalo Chicken</td>
+                    <td>1,200</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><img src="./img/original.jpg"></td>
+                    <td>Fried Rice and Chicken</td>
+                    <td>1,500</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </p>
+              <p>
+                <form method="post">
+                  <p><select name="orderStatus">
+                      <option value="volvo">Cancel</option>
+                      <option value="saab">Pending</option>
+                      <option value="fiat">Processing</option>
+                      <option value="audi">Complete</option>
+                    </select></p>
+                  <p><input type="submit" value="Update Order" class="button_1"></p>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Mobile Buka, Copyright &copy; 2018</p>
+  </footer>
+  <script src="./js/page.js"></script>
+  <script>document.getElementById("defaultOpen").click();</script>
+</body>
+
+</html>
