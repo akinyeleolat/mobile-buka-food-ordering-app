@@ -8,7 +8,9 @@ env:
 cache:
   directories:
    - "node_modules"
-
+addons:
+    code_climate:
+        repo_token: 6752b5321b9203b49cfe0aeec18c7bdf5bd6eb721bd05857f23dac9df77cb25a
 script: 
   - npm test
 after_success:
@@ -16,8 +18,11 @@ after_success:
   - npm install codeclimate-test-reporter
   - codeclimat-test-reporter < coverage/lcov.info
 before_script:
+  - npm install codeclimate-test-reporter istanbul -g
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 after_script:
+  - codeclimate-test-reporter < ./coverage/lcov.info
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
