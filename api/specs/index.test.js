@@ -230,6 +230,28 @@ describe('POST ORDER /api/v1/orders', () => {
         done();
       });
   });
+  it('ITEM NAME ON ORDER ITEM  that is  not string should return status 400', (done) => {
+    const newOrder6 = {
+      customerName: 'Adebisi Felicia',
+      deliveryAddress: 'CA 60, Ambrose Street,Allen',
+      orderStatus: 'Not Accepted',
+      item: [
+        { itemName: 127, itemPrice: 250, quantity: 23 },
+      ],
+    };
+    request
+      .post('/api/v1/orders')
+      .send(newOrder6)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: 'item name must be an alphabet',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
   it('ORDER WITH VALID PARAMETERS should return status 201', (done) => {
     request
       .post('/api/v1/orders')
@@ -276,6 +298,46 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
       .expect(200)
+      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID with empty string should return  status 400', (done) => {
+    orderId = order.length - 1;
+    const newStatus = { orderStatus: '' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(400)
+      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID with empty space should return  status 400', (done) => {
+    orderId = order.length - 1;
+    const newStatus = { orderStatus: ' ' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(400)
+      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID with no string data should return  status 400', (done) => {
+    orderId = order.length - 1;
+    const newStatus = { orderStatus: ' 123' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(400)
+      // .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID with no valid values return  status 400', (done) => {
+    orderId = order.length - 1;
+    const newStatus = { orderStatus: ' ' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .send(newStatus)
+      .expect(400)
       // .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
