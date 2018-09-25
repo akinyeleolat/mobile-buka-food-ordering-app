@@ -6,20 +6,7 @@ export const signup = (req, res) => {
   const {
     fullname, deliveryAddress, username, userType, email, phoneNumber, password
   } = req.body;
-
-  console.log('fullname ------>', fullname);
-  console.log('deliveryAddress ------>', deliveryAddress);
-  console.log('username ------>', username);
-  console.log('userType ------>', userType);
-  console.log('email ------>', email);
-  console.log('phoneNumber ------>', phoneNumber);
-  console.log('userpassword----->', password);
-  console.log('createdAt------->', new Date());
-  console.log('here1');
   const createdAt = new Date();
-  console.log('createdAt------->', createdAt);
-
-  console.log('here1');
   db.any('SELECT * FROM users WHERE email = $1', [email])
     .then((user) => {
       if (user.length >= 1) {
