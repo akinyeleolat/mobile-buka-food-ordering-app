@@ -4,6 +4,7 @@ import chai from 'chai';
 import app from '../server';
 
 import order from '../model/orderModel';
+import * as test from '../model/userEntries';
 
 const { expect } = chai;
 
@@ -428,6 +429,196 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
     request
       .put(`/api/v1/orders/${orderId}`)
       .send(newStatus)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('All Test Cases for Users Sign Up', () => {
+  it('EMPTY SIGNUP DATA should return status 404', (done) => {
+    const emptyData = {};
+    request
+      .post('/auth/signup')
+      .send(emptyData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: 'No input recieved',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY SIGNUP DATA should return status 404', (done) => {
+
+    const testData = test.signUpData;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `users  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY SIGNUP DATA should return status 404', (done) => {
+
+    const testData = test.signUpData1;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `users  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('username, usertype and fullname must be an alphabet should return status 404', (done) => {
+
+    const testData = test.signUpData2;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: `Username, fullname, and userType  must be an alphabet`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Invalid PhoneNumber should return status 404', (done) => {
+
+    const testData = test.signUpData3;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: `Users phoneNumber must be a valid telephone number  with country code (for example +234) and must not be less than 10 character`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Invalid Email should return status 404', (done) => {
+
+    const testData = test.signUpData4;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Email',
+          message: 'Enter Valid Email',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Invalid Password should return status 404', (done) => {
+
+    const testData = test.signUpData5;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Password',
+          message: 'Password must contain symbols,alphabet and not less 6 charaters',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Invalid Users type should return status 404', (done) => {
+
+    const testData = test.signUpData6;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: 'incorrect userType value',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Valid should return status 200', (done) => {
+    const testData = test.signUpData7;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(200)
+      .end(done);
+  });
+  it('Duplicate username should return status 409', (done) => {
+    const testData = test.signUpData8;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(409)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Conflicts',
+          message: 'username already exist',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Duplicate email should return status 409', (done) => {
+    const testData = test.signUpData9;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(409)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Conflicts',
+          message: 'user with this email already exist',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Duplicate phoneNumber should return status 409', (done) => {
+    const testData = test.signUpData10;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(409)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Conflicts',
+          message: 'user with this phone details already exist',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Valid request should return JSON Format', (done) => {
+    const testData = test.signUpData6;
+    request
+      .post('/auth/signup')
+      .send(testData)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });

@@ -11,7 +11,7 @@ export const signup = (req, res) => {
     .then((user) => {
       if (user.length >= 1) {
         return res.status(409).send({
-          status: 'success',
+          status: 'Conflicts',
           message: 'user with this email already exist',
         });
       }
@@ -19,8 +19,8 @@ export const signup = (req, res) => {
         .then((user) => {
           if (user.length >= 1) {
             return res.status(409).send({
-              status: 'success',
-              message: 'user with this phone already exist',
+              status: 'Conflicts',
+              message: 'user with this phone details already exist',
             });
           }
           console.log('here1');
@@ -28,7 +28,7 @@ export const signup = (req, res) => {
             .then((user) => {
               if (user.length >= 1) {
                 return res.status(409).send({
-                  status: 'success',
+                  status: 'Conflicts',
                   message: 'username already exist',
                 });
               }
@@ -74,17 +74,16 @@ export const login = (req, res) => {
   } = req.body;
 
   if ((!username) || (!userpassword)) {
-    res.json({
+    return res.status(400).send({
       status: 'Blank Data',
       message: 'Users\' data cannot be blank'
     });
-    return;
   }
 
   db.any('SELECT * FROM users WHERE username = $1', [username])
     .then((user) => {
       if (user.length < 1) {
-        return res.status(404).json({
+        return res.status(404).send({
           status: 'success',
           message: 'Auth failed',
         });
@@ -94,7 +93,7 @@ export const login = (req, res) => {
       if (result) {
         const token = jwt.sign({
           username: user[0].username,
-          userId: user[0].id,
+          userType: user[0].userType,
         }, process.env.SECRET_KEY,
           {
             expiresIn: '1h',
@@ -107,7 +106,7 @@ export const login = (req, res) => {
           Token: token,
         });
       }
-      return res.status(401).json({
+      return res.status(401).send({
         status: 'failed',
         message: 'Auth Failed',
       });
