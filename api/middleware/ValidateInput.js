@@ -1,6 +1,13 @@
 import * as valid from './validate';
 
 export const validateOrderInput = (req, res, next) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    console.log('Object missing');
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: "No input recieved",
+    });
+  }
   const { customerName, deliveryAddress, item } = req.body;
   if ((!customerName) || (!deliveryAddress) || (!item)) {
     return res.status(400).send({
@@ -55,6 +62,13 @@ export const validateOrderInput = (req, res, next) => {
   next();
 };
 export const validateOrderStatus = (req, res, next) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    console.log('Object missing');
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: "No input recieved",
+    });
+  }
   let { orderStatus } = req.body;
   orderStatus = orderStatus.toLowerCase().trim()
   if (!orderStatus) {
@@ -83,4 +97,66 @@ export const validateOrderStatus = (req, res, next) => {
   }
   next();
 };
+export const ValidateUsersInput = (req, res, next) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: "No input recieved",
+    });
+  }
+  let {
+    fullname, deliveryAddress, username, userType, email, phoneNumber, password
+  } = req.body;
+  fullname = fullname.trim();
+  deliveryAddress = deliveryAddress.trim();
+  username = username.toLowerCase().trim();
+  userType = userType.toLowerCase().trim();
+  email = email.toLowerCase().trim();
+  phoneNumber = phoneNumber.trim();
+  password = password.trim();
+
+  if ((!username) || (!fullname) || (!password) || (!userType) || (!email) || (!phoneNumber) || (!deliveryAddress)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: `users  Details  cannot be blank`,
+    });
+  }
+  if (valid.checkSpace(username) || valid.checkSpace(fullname) || valid.checkSpace(password) || valid.checkSpace(userType) || valid.checkSpace(email) || valid.checkSpace(phoneNumber) || valid.checkSpace(deliveryAddress)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: `Users Details  cannot be blank`,
+    });
+  }
+  if (!valid.checkString(username) || !valid.checkString(fullname) || !valid.checkString(userType)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: `Username, fullname, and userType  must be an alphabet`,
+    });
+  }
+  if (!valid.checkPhoneNumber(phoneNumber)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: `Users phoneNumber must be a valid telephone number  with country code (for example +234) and must not be less than 10 character`,
+    });
+  }
+  if (!valid.checkEmail(email)) {
+    return res.status(400).send({
+      status: 'Invalid Email',
+      message: 'Enter Valid Email',
+    });
+  }
+  if (!valid.checkPassword(password)) {
+    return res.status(400).send({
+      status: 'Invalid Password',
+      message: 'Password must contain symbols,alphabet and not less 6 charaters',
+    });
+  }
+  if (['customer', 'admin'].indexOf(userType) < 0) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: 'incorrect userType value',
+    });
+  }
+  next();
+}
 // export default validateOrderInput;

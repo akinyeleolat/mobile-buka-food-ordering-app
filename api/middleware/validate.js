@@ -43,3 +43,23 @@ export const checkEmail = (email) => {
     return true;
   }
 };
+/**
+ * This function check if the value is a valid phoneNumber.
+ * @param {number} value any
+ * @returns {boolean} true or false.
+ */
+export const checkPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.match(/^\+?([0-9]{3})\)?[-. ]?([0-9]{10})$/) && (phoneNumber.length >= 10)) {
+    return true;
+  }
+};
+/**
+ * This function check if the value is a valid password text, number and sysmbols not less than 6.
+ * @param {number} value any
+ * @returns {boolean} true or false.
+ */
+export const checkPassword = (value) => {
+  if ((String(value).match(/[A-Za-z0-9]/g)) && (String(value).match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g)) && (value.length >= 6)) {
+    return true;
+  }
+};
