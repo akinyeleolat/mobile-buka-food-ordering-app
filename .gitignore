@@ -1,4 +1,5 @@
 node_modules/
 starter.txt
 coverage/
+.nyc_output/
 

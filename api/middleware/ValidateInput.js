@@ -5,7 +5,7 @@ export const validateOrderInput = (req, res, next) => {
     console.log('Object missing');
     return res.status(400).send({
       status: 'Blank Data',
-      message: "No input recieved",
+      message: 'customer name,delivery address and/or item cannot be blank',
     });
   }
   const { customerName, deliveryAddress, item } = req.body;
