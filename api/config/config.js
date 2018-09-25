@@ -3,7 +3,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectionString = process.env.DATABASE_URL;
+let connectionString;
+if (process.env.NODE_ENV === 'test') {
+  connectionString = process.env.TEST_URL;
+  console.log('test');
+} else {
+  connectionString = process.env.DATABASE_URL;
+  console.log('dev');
+}
 
 const pgp = pg();
 
