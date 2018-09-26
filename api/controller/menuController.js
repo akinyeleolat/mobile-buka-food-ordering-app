@@ -33,5 +33,11 @@ export const addFood = (req, res) => {
 }
 
 export const getMenu = (req, res) => {
-
-}
+  db.query('SELECT * from items order by menu ASC')
+    .then(menuItem => res.status(200).send({
+      status: 'success',
+      menuItem,
+      message: `Food items on  menu retrieved`,
+    }))
+    .catch(() => res.status(500).send({ message: 'internal server error' }));
+};
