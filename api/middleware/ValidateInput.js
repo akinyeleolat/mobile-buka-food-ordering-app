@@ -160,3 +160,35 @@ export const ValidateUsersInput = (req, res, next) => {
   next();
 }
 // export default validateOrderInput;
+export const ValidateUserLogin = (req, res, next) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: 'No input recieved',
+    });
+  }
+  let {
+    username, userpassword,
+  } = req.body;
+  username = username.toLowerCase().trim();
+  userpassword = userpassword.trim();
+  if ((!username) || (!userpassword)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: 'Users\' data cannot be blank',
+    });
+  }
+  if (!valid.checkString(username)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: `Username  must be an alphabet`,
+    });
+  }
+  if (valid.checkSpace(username)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: `Users Details  cannot be blank`,
+    });
+  }
+  next();
+}

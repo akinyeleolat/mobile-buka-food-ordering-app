@@ -69,23 +69,14 @@ export const login = (req, res) => {
   const {
     username, userpassword,
   } = req.body;
-
-  if ((!username) || (!userpassword)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'Users\' data cannot be blank'
-    });
-  }
-
   db.any('SELECT * FROM users WHERE username = $1', [username])
     .then((user) => {
       if (user.length < 1) {
         return res.status(404).send({
-          status: 'success',
+          status: 'User not found',
           message: 'Auth failed',
         });
       }
-
       const result = bcrypt.compareSync(userpassword, user[0].userpassword);
       if (result) {
         const token = jwt.sign({

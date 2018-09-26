@@ -19,7 +19,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
  * @returns {object} response from the functions.
  */
 router.post('/signup', valid.ValidateUsersInput, usersController.signup);
-router.post('/login', valid.ValidateUsersInput, usersController.login);
+router.post('/login', valid.ValidateUserLogin, usersController.login);
 
 
 export default router;

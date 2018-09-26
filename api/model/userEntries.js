@@ -118,3 +118,28 @@ export const signUpData8 = {
   password,
   userType,
 };
+//empty
+export const signInData = {
+  username: '',
+  userpassword: 'asd123@'
+}
+// space
+export const signInData1 = {
+  username: ' ',
+  userpassword: 'asd123@'
+}
+// username must be an Alphabet
+export const signInData2 = {
+  username: '123',
+  userpassword: 'asd123@'
+}
+// invalid login
+export const signInData3 = {
+  username: 'testusername',
+  userpassword: 'testpassword'
+}
+// valid login
+export const signInData4 = {
+  username: 'jamesbond',
+  userpassword: 'asd123@'
+}
