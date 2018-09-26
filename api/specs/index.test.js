@@ -602,8 +602,8 @@ describe('All Test Cases for Users Sign Up', () => {
       .end(done);
   });
 });
-describe('All Test Cases for Users Sign Up', () => {
-  it('EMPTY SIGNUP DATA should return status 404', (done) => {
+describe('All Test Cases for Users Login', () => {
+  it('EMPTY LOGIN DATA should return status 404', (done) => {
     const emptyData = {};
     request
       .post('/auth/login')
@@ -618,7 +618,7 @@ describe('All Test Cases for Users Sign Up', () => {
         done();
       });
   });
-  it('EMPTY SIGNUP DATA should return status 404', (done) => {
+  it('EMPTY LOGIN DATA should return status 404', (done) => {
 
     const testData = test.signInData;
     request
@@ -628,13 +628,13 @@ describe('All Test Cases for Users Sign Up', () => {
       .end((err, res) => {
         expect(res.body).deep.equal({
           status: 'Blank Data',
-          message: 'Users\' data cannot be blank',
+          message: `users  Details  cannot be blank`,
         });
         if (err) done(err);
         done();
       });
   });
-  it('EMPTY SIGNUP DATA should return status 404', (done) => {
+  it('EMPTY LOGIN DATA should return status 404', (done) => {
     const testData = test.signInData1;
     request
       .post('/auth/login')
@@ -664,23 +664,8 @@ describe('All Test Cases for Users Sign Up', () => {
         done();
       });
   });
-  it('Invalid login should return status 404', (done) => {
-    const testData = test.signInData3;
-    request
-      .post('/auth/signup')
-      .send(testData)
-      .expect(400)
-      .end((err, res) => {
-        expect(res.body).deep.equal({
-          status: 'User not found',
-          message: 'Auth failed',
-        });
-        if (err) done(err);
-        done();
-      });
-  });
   it('Valid should return status 200', (done) => {
-    const testData = test.signUpData4;
+    const testData = test.signInData4;
     request
       .post('/auth/login')
       .send(testData)
@@ -689,6 +674,23 @@ describe('All Test Cases for Users Sign Up', () => {
   });
   it('Valid request should return JSON Format', (done) => {
     const testData = test.signInData2;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('Invalid Login', () => {
+  const testData = test.signInData3;
+  it('Invalid login should return status 404', (done) => {
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(404)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
     request
       .post('/auth/login')
       .send(testData)

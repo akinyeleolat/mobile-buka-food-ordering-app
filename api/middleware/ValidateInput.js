@@ -1,5 +1,4 @@
 import * as valid from './validate';
-
 export const validateOrderInput = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     console.log('Object missing');
@@ -159,7 +158,7 @@ export const ValidateUsersInput = (req, res, next) => {
   }
   next();
 }
-// export default validateOrderInput;
+
 export const ValidateUserLogin = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     return res.status(400).send({
@@ -175,7 +174,7 @@ export const ValidateUserLogin = (req, res, next) => {
   if ((!username) || (!userpassword)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: 'Users\' data cannot be blank',
+      message: `users  Details  cannot be blank`,
     });
   }
   if (!valid.checkString(username)) {

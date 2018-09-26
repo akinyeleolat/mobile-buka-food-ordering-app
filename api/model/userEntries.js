@@ -141,5 +141,5 @@ export const signInData3 = {
 // valid login
 export const signInData4 = {
   username: 'jamesbond',
-  userpassword: 'asd123@'
+  userpassword: 'asd123@',
 }
