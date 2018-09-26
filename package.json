@@ -9,6 +9,7 @@
     ]
   },
   "scripts": {
+    "pretest": "babel-node -- ./api/db/createTableSchema.js",
     "test": "nyc mocha --require babel-core/register ./api/specs/index.test.js --timeout 500000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "babel-node": "babel-node --presets=env",
