@@ -82,9 +82,9 @@ export const signUpData6 = {
 export const signUpData7 = {
   fullname: 'Akinyele James Felix',
   deliveryAddress,
-  username: 'james2b',
-  email: 'james4@james.com',
-  phoneNumber: '+2349032679325',
+  username: 'jamesbond',
+  email: 'jamesbond@james.com',
+  phoneNumber: '+2349032679326',
   password,
   userType,
 };
