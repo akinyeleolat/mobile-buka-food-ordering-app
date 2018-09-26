@@ -819,7 +819,7 @@ describe('GET ALL MENU', () => {
   });
   it('should return all order in JSON format', (done) => {
     request
-      .get('/api/v1/orders')
+      .get('/menu/')
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
