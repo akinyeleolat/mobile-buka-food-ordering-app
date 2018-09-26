@@ -80,11 +80,11 @@ export const signUpData6 = {
 };
 // correct data
 export const signUpData7 = {
-  fullname: 'Akinyele James',
+  fullname: 'Akinyele James Felix',
   deliveryAddress,
-  username: 'james',
-  email: 'james@james.com',
-  phoneNumber: '+2348035058506',
+  username: 'james2',
+  email: 'james3@james.com',
+  phoneNumber: '+2348032679325',
   password,
   userType,
 };
