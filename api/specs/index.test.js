@@ -569,20 +569,21 @@ describe('All Test Cases for Users Sign Up', () => {
       .expect(200)
       .end(done);
   });
+  it('Duplicate username should return status 409', (done) => {
+    const testData = test.signUpData8;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(409)
+      .end(done);
+  });
   it('Duplicate email should return status 409', (done) => {
     const testData = test.signUpData9;
     request
       .post('/auth/signup')
       .send(testData)
       .expect(409)
-      .end((err, res) => {
-        expect(res.body).deep.equal({
-          status: 'Conflicts',
-          message: 'user with this email already exist',
-        });
-        if (err) done(err);
-        done();
-      });
+      .end(done);
   });
   it('Duplicate phoneNumber should return status 409', (done) => {
     const testData = test.signUpData10;
@@ -590,29 +591,7 @@ describe('All Test Cases for Users Sign Up', () => {
       .post('/auth/signup')
       .send(testData)
       .expect(409)
-      .end((err, res) => {
-        expect(res.body).deep.equal({
-          status: 'Conflicts',
-          message: 'user with this phone details already exist',
-        });
-        if (err) done(err);
-        done();
-      });
-  });
-  it('Duplicate username should return status 409', (done) => {
-    const testData = test.signUpData8;
-    request
-      .post('/auth/signup')
-      .send(testData)
-      .expect(409)
-      .end((err, res) => {
-        expect(res.body).deep.equal({
-          status: 'Conflicts',
-          message: 'username already exist',
-        });
-        if (err) done(err);
-        done();
-      });
+      .end(done);
   });
   it('Valid request should return JSON Format', (done) => {
     const testData = test.signUpData6;
