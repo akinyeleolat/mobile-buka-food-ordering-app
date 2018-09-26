@@ -23,7 +23,6 @@ export const signup = (req, res) => {
               message: 'user with this phone details already exist',
             });
           }
-          console.log('here1');
           db.any('SELECT * FROM users WHERE username = $1', [username])
             .then((user) => {
               if (user.length >= 1) {
@@ -32,9 +31,7 @@ export const signup = (req, res) => {
                   message: 'username already exist',
                 });
               }
-              console.log('here1');
               const userpassword = bcrypt.hashSync(password, 10);
-              console.log(userpassword);
 
               db.query('INSERT INTO users (fullname, deliveryAddress, username, userType, email, phoneNumber, userpassword, createdAt) VALUES ($1, $2, $3, $4, $5,$6,$7,$8) RETURNING id ', [fullname, deliveryAddress, username, userType, email, phoneNumber, userpassword, createdAt])
                 .then((id) => {

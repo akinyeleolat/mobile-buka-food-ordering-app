@@ -80,21 +80,11 @@ export const signUpData6 = {
 };
 // correct data
 export const signUpData7 = {
-  fullname,
+  fullname: 'Akinyele James',
   deliveryAddress,
-  username,
-  email,
-  phoneNumber,
-  password,
-  userType,
-};
-// duplicate users name
-export const signUpData8 = {
-  fullname: 'Akinyele Oluwatoba',
-  deliveryAddress: 'Ataoja Estate',
-  username,
-  email: 'a@a.com',
-  phoneNumber: '+2347032679328',
+  username: 'james',
+  email: 'james@james.com',
+  phoneNumber: '+2348035058506',
   password,
   userType,
 };
@@ -114,7 +104,17 @@ export const signUpData10 = {
   deliveryAddress: 'Ataoja Estate',
   username: 'testUsername1',
   email: 'ab@ab.com',
-  phoneNumber,
+  phoneNumber: '+ 2347032679328',
+  password,
+  userType,
+};
+// duplicate users name
+export const signUpData8 = {
+  fullname: 'Akinyele Oluwatoba',
+  deliveryAddress: 'Ataoja Estate',
+  username: 'ab@ab.com',
+  email: 'a@a.com',
+  phoneNumber: '+2347032679329',
   password,
   userType,
 };
