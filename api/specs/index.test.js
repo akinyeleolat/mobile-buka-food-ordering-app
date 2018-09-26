@@ -561,12 +561,12 @@ describe('All Test Cases for Users Sign Up', () => {
         done();
       });
   });
-  it('Valid should return status 200', (done) => {
+  it('Valid should return status 201', (done) => {
     const testData = test.signUpData7;
     request
       .post('/auth/signup')
       .send(testData)
-      .expect(200)
+      .expect(201)
       .end(done);
   });
   it('Duplicate username should return status 409', (done) => {
