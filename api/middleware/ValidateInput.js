@@ -191,3 +191,45 @@ export const ValidateUserLogin = (req, res, next) => {
   }
   next();
 }
+export const ValidateMenuInput = (req, res, next) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: 'No input recieved',
+    });
+  }
+  let { itemName, itemPrice, imageUrl, menu } = req.body;
+  itemName = itemName.toLowerCase().trim();
+  itemPrice = itemPrice.trim();
+  imageUrl = imageUrl.trim();
+  menu = menu.trim();
+  // empty
+  if ((!itemName) || (!itemPrice) || (!imageUrl) || (!menu)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: `Food  Details  cannot be blank`,
+    });
+  }
+  // space
+  if (valid.checkSpace(itemName) || valid.checkSpace(itemPrice) || valid.checkSpace(imageUrl) || valid.checkSpace(menu)) {
+    return res.status(400).send({
+      status: 'Blank Data',
+      message: `Food  Details  cannot be blank`,
+    });
+  }
+  // item price number
+  if (!valid.checkNumber(itemPrice)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: 'Item price  must be a number and also not zero',
+    });
+  }
+  // itemName, menu string
+  if (!valid.checkString(itemName) || !valid.checkString(menu)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: `Item Name and/or Menu  must be an alphabet`,
+    });
+  }
+  next();
+}
