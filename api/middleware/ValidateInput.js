@@ -217,13 +217,6 @@ export const ValidateMenuInput = (req, res, next) => {
       message: `Food  Details  cannot be blank`,
     });
   }
-  // item price number
-  if (!valid.checkNumber(itemPrice)) {
-    return res.status(400).send({
-      status: 'Invalid Data',
-      message: 'Item price  must be a number and also not zero',
-    });
-  }
   // itemName, menu string
   if (!valid.checkString(itemName) || !valid.checkString(menu)) {
     return res.status(400).send({
@@ -231,5 +224,13 @@ export const ValidateMenuInput = (req, res, next) => {
       message: `Item Name and/or Menu  must be an alphabet`,
     });
   }
+  // item price number
+  if (!valid.checkNumber(itemPrice)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: 'Item price  must be a number and also not zero',
+    });
+  }
+
   next();
 }

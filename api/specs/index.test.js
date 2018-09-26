@@ -5,6 +5,7 @@ import app from '../server';
 
 import order from '../model/orderModel';
 import * as test from '../model/userEntries';
+import * as item from '../model/itemEntries';
 
 const { expect } = chai;
 
@@ -693,6 +694,117 @@ describe('Invalid Login', () => {
   it('Valid request should return JSON Format', (done) => {
     request
       .post('/auth/login')
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('All Test Cases for Add food to menu ', () => {
+  it('EMPTY  DATA should return status 404', (done) => {
+    const emptyData = {};
+    request
+      .post('/menu/')
+      .send(emptyData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: 'No input recieved',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY empty data should return status 404', (done) => {
+
+    const testData = item.itemData;
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `Food  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY ITEM DATA should return status 404', (done) => {
+    const testData = item.itemData1;
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `Food  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('item Name or menu must be an alphabet should return status 404', (done) => {
+    const testData = item.itemData2;
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: `Item Name and/or Menu  must be an alphabet`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('item Price must be a number  should return status 404', (done) => {
+    const testData = item.itemData3;
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: 'Item price  must be a number and also not zero',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Valid item Data should return status 201', (done) => {
+    const testData = item.itemData4;
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect(201)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
+    const testData = item.itemData2;
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('Duplicate Item', () => {
+  const testData = item.itemData4;
+  it('duplicate Item should return status 409', (done) => {
+    request
+      .post('/menu/')
+      .send(testData)
+      .expect(409)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
+    request
+      .post('/menu/')
       .send(testData)
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
