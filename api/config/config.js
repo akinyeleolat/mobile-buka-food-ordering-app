@@ -4,12 +4,12 @@ import createTable from '../db/createTableSchema';
 dotenv.config();
 
 let connectionString;
-const connect = 'postgres://zlwhjmri:RPA-oH_cMDX5V1qLkUwM1KMPgFey_vUh@localhost:5432/zlwhjmri';
+
 if (process.env.NODE_ENV === 'test') {
-  connectionString = process.env.TEST_URL;
+  connectionString = process.env.TEST_URL || process.env.CONNECT;
   console.log('test');
 } else {
-  connectionString = process.env.DATABASE_URL || connect;
+  connectionString = process.env.DATABASE_URL || process.env.CONNECT;
   console.log('dev');
 }
 
