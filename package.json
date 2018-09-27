@@ -17,7 +17,7 @@
     "build": "babel src -d dist",
     "migrate": "babel-node -- ./api/db/createTableSchema.js",
     "migrate-test": "cross-env NODE_ENV=test npm run",
-    "postinstall": "npm install babel-cli babel-preset-env babel-register"
+    "postinstall": "npm install babel-cli babel-preset-env babel-register bcrypt bcrypt-nodejs"
   },
   "repository": {
     "type": "git",
@@ -30,19 +30,18 @@
   },
   "homepage": "https://github.com/akinyeleolat/mobile-buka-ordering-app#readme",
   "dependencies": {
-    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
+    "node-pre-gyp": "^0.11.0",
     "nodemon": "^1.18.3",
     "pg": "^7.4.3",
     "pg-promise": "^8.4.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "node-pre-gyp": "^0.11.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
