@@ -192,6 +192,7 @@ export const ValidateUserLogin = (req, res, next) => {
   next();
 }
 
+
 export const ValidateMenuInput = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     return res.status(400).send({
@@ -235,3 +236,4 @@ export const ValidateMenuInput = (req, res, next) => {
 
   next();
 }
+

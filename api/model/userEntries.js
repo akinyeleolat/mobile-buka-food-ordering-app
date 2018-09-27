@@ -89,6 +89,7 @@ export const signUpData7 = {
   password,
   userType,
 };
+
 export const signUpData11 = {
   fullname: 'Akinyele James Felix',
   deliveryAddress,
@@ -98,6 +99,7 @@ export const signUpData11 = {
   password,
   userType: 'customer',
 };
+
 // duplicate email
 export const signUpData9 = {
   fullname: 'Akinyele Oluwatoba',
