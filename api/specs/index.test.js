@@ -1,18 +1,29 @@
 
 import supertest from 'supertest';
 import chai from 'chai';
+import jwt from 'jsonwebtoken';
 import app from '../server';
 
 import order from '../model/orderModel';
 import * as test from '../model/userEntries';
 
+import * as item from '../model/itemEntries';
+
+
 const { expect } = chai;
 
 
 const request = supertest.agent(app);
+const username = 'admin';
+const username2 = 'james';
 
+const userType = 'admin';
+const userType2 = 'customer'
 const newCustomerName = 'test';
 const newDeliveryAddress = 'CA Test';
+const token = jwt.sign({ username, userType }, process.env.SECRET_KEY, { expiresIn: '1h' });
+const token2 = jwt.sign({ username2, userType2 }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
 const itemDetails = [
   { itemName: 'Sushi Cuisine', itemPrice: 250, quantity: 20 },
   { itemName: 'Vegies Chicken', itemPrice: 250, quantity: 25 },
@@ -569,6 +580,14 @@ describe('All Test Cases for Users Sign Up', () => {
       .expect(201)
       .end(done);
   });
+  it('Valid should return status 201', (done) => {
+    const testData = test.signUpData11;
+    request
+      .post('/auth/signup')
+      .send(testData)
+      .expect(201)
+      .end(done);
+  });
   it('Duplicate username should return status 409', (done) => {
     const testData = test.signUpData8;
     request
@@ -672,6 +691,14 @@ describe('All Test Cases for Users Login', () => {
       .expect(200)
       .end(done);
   });
+  it('Valid should return status 200', (done) => {
+    const testData = test.signInData5;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(200)
+      .end(done);
+  });
   it('Valid request should return JSON Format', (done) => {
     const testData = test.signInData2;
     request
@@ -694,6 +721,176 @@ describe('Invalid Login', () => {
     request
       .post('/auth/login')
       .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('All Test Cases for Add food to menu ', () => {
+  it('Non Admin should return status 401', (done) => {
+    const emptyData = item.itemData4;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token2}`)
+      .send(emptyData)
+      .expect(401)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Unauthorized',
+          message: 'Unauthorized access',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY  DATA should return status 404', (done) => {
+    const emptyData = {};
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(emptyData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: 'No input recieved',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY empty data should return status 404', (done) => {
+
+    const testData = item.itemData;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `Food  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY ITEM DATA should return status 404', (done) => {
+    const testData = item.itemData1;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `Food  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('item Name or menu must be an alphabet should return status 404', (done) => {
+    const testData = item.itemData2;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: `Item Name and/or Menu  must be an alphabet`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('item Price must be a number  should return status 404', (done) => {
+    const testData = item.itemData3;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: 'Item price  must be a number and also not zero',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Valid item Data should return status 201', (done) => {
+    const testData = item.itemData4;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect(201)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
+    const testData = item.itemData2;
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('Duplicate Item', () => {
+  const testData = item.itemData4;
+  it('duplicate Item should return status 409', (done) => {
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect(409)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
+    request
+      .post('/menu/')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('GET ALL MENU', () => {
+  it('should return status 200', (done) => {
+    request
+      .get('/menu/')
+      .expect(200)
+      .end(done);
+  });
+  it('should return all order in JSON format', (done) => {
+    request
+      .get('/menu/')
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
