@@ -1,20 +1,26 @@
 import pg from 'pg-promise';
 import dotenv from 'dotenv';
-
+import createTable from '../db/createTableSchema';
 dotenv.config();
 
 let connectionString;
+const connect = 'postgres://zlwhjmri:RPA-oH_cMDX5V1qLkUwM1KMPgFey_vUh@localhost:5432/zlwhjmri';
 if (process.env.NODE_ENV === 'test') {
   connectionString = process.env.TEST_URL;
   console.log('test');
 } else {
-  connectionString = process.env.DATABASE_URL;
+  connectionString = process.env.DATABASE_URL || connect;
   console.log('dev');
 }
 
 const pgp = pg();
 
 export const db = pgp(connectionString);
+const tb = createTable;
+db.none(tb).then(() => {
+  console.log('tables created');
+})
+  .catch(error => console.log(error))
 if (db) {
   console.log('database connected');
 }

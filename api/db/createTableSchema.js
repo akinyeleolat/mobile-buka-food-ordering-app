@@ -1,16 +1,19 @@
 import { Client } from 'pg';
 
+
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectionString = process.env.DATABASE_URL;
+const connect = 'postgres://zlwhjmri:RPA-oH_cMDX5V1qLkUwM1KMPgFey_vUh@localhost:5432/zlwhjmri';
+
+const connectionString = process.env.DATABASE_URL || connect;
 const client = new Client({ connectionString, ssl: true });
 
 client.connect();
 
 
-const createTable = () => {
+export const createTable = () => {
   const query = ` 
   DROP TABLE IF EXISTS Item CASCADE;
 
@@ -84,12 +87,13 @@ IF NOT EXISTS Orders
 
   )`;
 
-  client.query(query, (err) => {
-    if (err) {
-      return err.message;
-    }
-    client.end();
-  }
-  );
+  // client.query(query, (err) => {
+  //   if (err) {
+  //     return err.message;
+  //   }
+  //   client.end();
+  // }
+  // );
+  return query;
 };
-createTable();
+export default createTable();
