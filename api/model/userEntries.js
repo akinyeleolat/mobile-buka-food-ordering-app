@@ -2,7 +2,8 @@ const fullname = 'akinyele Oluwatosin A';
 const username = 'akinyeleolat';
 const email = 'akinyeleolat2005@gmail.com';
 const phoneNumber = '+2348032679327';
-const password = 'asd123@';
+const password = 'admin@';
+const userpassword = 'admin@'
 const userType = 'customer';
 const deliveryAddress = '5, Oluwalonimi, Ikeja,Lagos';
 
@@ -82,11 +83,20 @@ export const signUpData6 = {
 export const signUpData7 = {
   fullname: 'Akinyele James Felix',
   deliveryAddress,
-  username: 'jamesbond',
+  username: 'admin',
   email: 'jamesbond@james.com',
   phoneNumber: '+2349032679326',
   password,
   userType,
+};
+export const signUpData11 = {
+  fullname: 'Akinyele James Felix',
+  deliveryAddress,
+  username: 'james',
+  email: 'jamesbond2@james.com',
+  phoneNumber: '+2349032679327',
+  password,
+  userType: 'customer',
 };
 // duplicate email
 export const signUpData9 = {
@@ -112,7 +122,7 @@ export const signUpData10 = {
 export const signUpData8 = {
   fullname: 'Akinyele Oluwatoba',
   deliveryAddress: 'Ataoja Estate',
-  username: 'jamesbond',
+  username: 'admin',
   email: 'a@a.com',
   phoneNumber: '+2347032679329',
   password,
@@ -140,6 +150,10 @@ export const signInData3 = {
 }
 // valid login
 export const signInData4 = {
-  username: 'jamesbond',
-  userpassword: 'asd123@',
+  username: 'admin',
+  userpassword: 'admin@',
+}
+export const signInData5 = {
+  username: 'james',
+  userpassword,
 }

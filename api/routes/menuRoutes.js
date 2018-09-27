@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 
 import * as menuController from '../controller/menuController';
 import * as valid from '../middleware/ValidateInput';
+import checkAuth from '../middleware/userAuth';
 
 
 const router = express.Router();
@@ -18,7 +19,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
  * @param {functions} ValidateMenuInput any number
  * @returns {object} response from the functions.
  */
-router.post('/', valid.ValidateMenuInput, menuController.addFood);
+router.post('/', checkAuth, valid.ValidateMenuInput, menuController.addFood);
 router.get('/', menuController.getMenu);
 
 

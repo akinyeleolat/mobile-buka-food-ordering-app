@@ -4,6 +4,13 @@ export const addFood = (req, res) => {
   const {
     itemName, itemPrice, imageUrl, menu } = req.body;
   const createdAt = new Date();
+  const { userType } = req.userData;
+  if (userType != 'admin') {
+    return res.status(401).send({
+      status: 'Unauthorized',
+      message: 'Unauthorized access'
+    });
+  }
   db.any('SELECT * FROM Item WHERE itemName = $1', [itemName])
     .then((item) => {
       if (item.length >= 1) {
@@ -18,7 +25,7 @@ export const addFood = (req, res) => {
           res.status(201).send({
             status: 'success',
             itemDetails,
-            message: `Item with ${id} added to ${menu} menu`
+            message: `Item with  added to  menu`
           })
         })
         .catch(error => res.status(500).send({
