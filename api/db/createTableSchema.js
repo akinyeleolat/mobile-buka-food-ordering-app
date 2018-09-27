@@ -19,7 +19,7 @@ export const createTable = () => {
 
   DROP TABLE IF EXISTS Users CASCADE;
 
-  DROP TABEL IF EXISTS Orders CASCADE;
+  DROP TABLE IF EXISTS Orders CASCADE;
 
 CREATE TABLE
 IF NOT EXISTS Item

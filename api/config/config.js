@@ -17,10 +17,10 @@ const pgp = pg();
 
 export const db = pgp(connectionString);
 const tb = createTable;
-db.none(tb).then(() => {
-  console.log('tables created');
+db.none(tb).then((result) => {
+  if (result) {
+    console.log('database connected');
+    console.log('tables created');
+  }
 })
   .catch(error => console.log(error))
-if (db) {
-  console.log('database connected');
-}
