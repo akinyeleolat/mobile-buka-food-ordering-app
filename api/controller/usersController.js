@@ -43,10 +43,8 @@ export const signup = (req, res) => {
                     {
                       expiresIn: '1h',
                     });
-                  const userDetails = { id: userId, fullname, deliveryAddress, username, email, phoneNumber, userType };
                   res.status(201).send({
                     status: 'success',
-                    userDetails,
                     token,
                     message: 'user created',
                   })
@@ -89,7 +87,6 @@ export const login = (req, res) => {
 
         return res.status(200).json({
           status: 'success',
-          user,
           message: 'Auth Successful',
           Token: token,
         });
