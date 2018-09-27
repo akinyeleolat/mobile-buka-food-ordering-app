@@ -1,6 +1,6 @@
 import pg from 'pg-promise';
 import dotenv from 'dotenv';
-import createTable from '../db/createTableSchema';
+// import createTable from '../db/createTableSchema';
 dotenv.config();
 
 let connectionString;
@@ -16,11 +16,3 @@ if (process.env.NODE_ENV === 'test') {
 const pgp = pg();
 
 export const db = pgp(connectionString);
-const tb = createTable;
-db.none(tb).then((result) => {
-  if (result) {
-    console.log('database connected');
-    console.log('tables created');
-  }
-})
-  .catch(error => console.log(error))
