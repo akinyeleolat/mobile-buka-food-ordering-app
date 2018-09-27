@@ -33,7 +33,7 @@ export const addFood = (req, res) => {
 }
 
 export const getMenu = (req, res) => {
-  db.query('SELECT * from items order by menu ASC')
+  db.query('SELECT * from item order by menu ASC')
     .then(menuItem => res.status(200).send({
       status: 'success',
       menuItem,
