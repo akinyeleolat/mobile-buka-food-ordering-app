@@ -602,99 +602,99 @@ describe('All Test Cases for Users Sign Up', () => {
       .end(done);
   });
 });
-// describe('All Test Cases for Users Login', () => {
-//   it('EMPTY LOGIN DATA should return status 404', (done) => {
-//     const emptyData = {};
-//     request
-//       .post('/auth/login')
-//       .send(emptyData)
-//       .expect(400)
-//       .end((err, res) => {
-//         expect(res.body).deep.equal({
-//           status: 'Blank Data',
-//           message: 'No input recieved',
-//         });
-//         if (err) done(err);
-//         done();
-//       });
-//   });
-//   it('EMPTY LOGIN DATA should return status 404', (done) => {
+describe('All Test Cases for Users Login', () => {
+  it('EMPTY LOGIN DATA should return status 404', (done) => {
+    const emptyData = {};
+    request
+      .post('/auth/login')
+      .send(emptyData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: 'No input recieved',
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY LOGIN DATA should return status 404', (done) => {
 
-//     const testData = test.signInData;
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect(400)
-//       .end((err, res) => {
-//         expect(res.body).deep.equal({
-//           status: 'Blank Data',
-//           message: `users  Details  cannot be blank`,
-//         });
-//         if (err) done(err);
-//         done();
-//       });
-//   });
-//   it('EMPTY LOGIN DATA should return status 404', (done) => {
-//     const testData = test.signInData1;
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect(400)
-//       .end((err, res) => {
-//         expect(res.body).deep.equal({
-//           status: 'Blank Data',
-//           message: `users  Details  cannot be blank`,
-//         });
-//         if (err) done(err);
-//         done();
-//       });
-//   });
-//   it('username must be an alphabet should return status 404', (done) => {
-//     const testData = test.signInData2;
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect(400)
-//       .end((err, res) => {
-//         expect(res.body).deep.equal({
-//           status: 'Invalid Data',
-//           message: `Username  must be an alphabet`,
-//         });
-//         if (err) done(err);
-//         done();
-//       });
-//   });
-//   it('Valid should return status 200', (done) => {
-//     const testData = test.signInData4;
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect(200)
-//       .end(done);
-//   });
-//   it('Valid request should return JSON Format', (done) => {
-//     const testData = test.signInData2;
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect('Content-Type', 'application/json; charset=utf-8')
-//       .end(done);
-//   });
-// });
-// describe('Invalid Login', () => {
-//   const testData = test.signInData3;
-//   it('Invalid login should return status 404', (done) => {
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect(404)
-//       .end(done);
-//   });
-//   it('Valid request should return JSON Format', (done) => {
-//     request
-//       .post('/auth/login')
-//       .send(testData)
-//       .expect('Content-Type', 'application/json; charset=utf-8')
-//       .end(done);
-//   });
-// });
+    const testData = test.signInData;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `users  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('EMPTY LOGIN DATA should return status 404', (done) => {
+    const testData = test.signInData1;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Blank Data',
+          message: `users  Details  cannot be blank`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('username must be an alphabet should return status 404', (done) => {
+    const testData = test.signInData2;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          status: 'Invalid Data',
+          message: `Username  must be an alphabet`,
+        });
+        if (err) done(err);
+        done();
+      });
+  });
+  it('Valid should return status 200', (done) => {
+    const testData = test.signInData4;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(200)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
+    const testData = test.signInData2;
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
+describe('Invalid Login', () => {
+  const testData = test.signInData3;
+  it('Invalid login should return status 404', (done) => {
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect(404)
+      .end(done);
+  });
+  it('Valid request should return JSON Format', (done) => {
+    request
+      .post('/auth/login')
+      .send(testData)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+});
