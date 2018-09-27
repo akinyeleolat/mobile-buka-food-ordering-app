@@ -4,7 +4,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectionString = process.env.DATABASE_URL;
+let connectionString;
+
+if (process.env.NODE_ENV === 'test') {
+  connectionString = process.env.TEST_URL || process.env.CONNECT;
+  console.log('test');
+} else {
+  connectionString = process.env.DATABASE_URL || process.env.CONNECT;
+  console.log('dev');
+}
+
 const client = new Client({ connectionString, ssl: true });
 
 client.connect();
@@ -53,14 +62,21 @@ IF NOT EXISTS Orders
   orderStatus VARCHAR(255) NOT NULL,
   createdAt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`;
-
-  // client.query(query, (err) => {
-  //   if (err) {
-  //     return err.message;
-  //   }
-  //   client.end();
-  // }
-  // );
-  return query;
+  return new Promise((resolve, reject) => {
+    client.query(query, (err, response) => {
+      if (err) {
+        reject(Error(err.message));
+      }
+      if (response) {
+        client.end();
+        resolve();
+      }
+    });
+  });
 };
-export default createTable();
+
+createTable().then(() => {
+  console.log('Tables destroyed and created');
+}).catch((error) => {
+  console.log('There was an error. ', error);
+});
