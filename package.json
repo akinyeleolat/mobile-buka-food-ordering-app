@@ -9,12 +9,15 @@
     ]
   },
   "scripts": {
-    "test": "nyc mocha --require babel-core/register ./api/specs/index.test.js --timeout 500000 --exit",
+    "test": "set NODE_ENV=test&& npm run migrate && nyc mocha --require babel-core/register ./api/specs/index.test.js --timeout 500000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "babel-node": "babel-node --presets=env",
     "start": "babel-node -- ./api/server.js",
     "start:dev": "nodemon --exec npm run babel-node -- ./api/server.js",
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "migrate": "set NODE_ENV=test&& babel-node -- ./api/db/createTableSchema.js",
+    "migrate-test": "cross-env NODE_ENV=test npm run",
+    "postinstall": "npm install babel-cli babel-preset-env babel-register bcrypt"
   },
   "repository": {
     "type": "git",
@@ -27,16 +30,20 @@
   },
   "homepage": "https://github.com/akinyeleolat/mobile-buka-ordering-app#readme",
   "dependencies": {
-    "babel-register": "^6.26.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "body-parser": "^1.18.3",
+    "bcrypt": "^3.0.0",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.18.3",
-    "lodash": "^4.17.10"
+    "pg": "^7.4.3",
+    "pg-promise": "^8.4.6"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
     "eslint": "^5.6.0",

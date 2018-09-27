@@ -1,4 +1,8 @@
-node_modules/
+.env
 starter.txt
 coverage/
+.nyc_output/
+node_modules/
+
+
 
