@@ -30,13 +30,15 @@
   },
   "homepage": "https://github.com/akinyeleolat/mobile-buka-ordering-app#readme",
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
-    "bcrypt": "^3.0.0",
+    "crossenv": "0.0.2-security",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.18.3",
+    "npm": "^6.4.1",
     "pg": "^7.4.3",
     "pg-promise": "^8.4.6"
   },
@@ -51,8 +53,8 @@
     "eslint-plugin-import": "^2.14.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
-    "supertest": "^3.1.0",
     "nyc": "^13.0.1",
+    "supertest": "^3.1.0",
     "webpack": "^4.16.5"
   },
   "keywords": [

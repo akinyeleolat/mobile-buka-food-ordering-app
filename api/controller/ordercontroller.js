@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { db } from '../config/config';
 import order from '../model/orderModel';
 
 
@@ -38,29 +41,76 @@ export const getSelectedOrder = (req, res) => {
 
 /**
  * This function creates order .
- * @param {string} customerName any string
- * @param {string} deliveryAddress any string
- * @param {object} item any string
+ * @param {object} req.item any string
+ * @param {number} req.amountDue any string
  * @returns {objects} order data
  */
 export const createOrder = (req, res) => {
-  const { customerName, deliveryAddress, item } = req.body;
-  const newCustomerName = customerName.trim();
-  const newDeliveryAddress = deliveryAddress.trim();
-  const newItem = item;
-  const newOrder = {
-    id: order.length + 1,
-    customerName: newCustomerName,
-    deliveryAddress: newDeliveryAddress,
-    orderStatus: 'New',
-    item: newItem,
-  };
-  order.push(newOrder);
-  return res.status(201).send({
-    status: 'success',
-    newOrder,
-    message: 'order created, add order items',
-  });
+  // req.boy
+  const { item, amountDue } = req.body;
+  // users 
+  const { userName }=req.userData;
+  // us username to get userId and delivery address
+  db.any('SELECT * FROM users WHERE userName = $1', [userName])
+  .then((user) => {
+    if (user.length < 1) {
+      return res.status(404).send({
+        status: 'users auth',
+        message: 'users not registered/logged in',
+      });
+    }
+    const userId = user.id;
+    const delivery = user.deliveryAddress;
+    const orderStatus ='NEW';
+    const amountDue;
+    const createdAt=new Date();
+    // check item exist
+    let msg ='';
+    for (let key = 0; key < item.length; key++) {
+      const { itemId, quantity } = item[key];
+      db.any('SELECT * FROM item WHERE id = $1', [itemId])
+             .then((item) => {
+              if (item.length < 1) {
+                msg = {
+                       status: 'item issues',
+                       message: 'item not found',
+                       };
+      return res.status(404).send(msg);
+    }
+    })
+    .catch(error => res.status(500).send({
+      status: 'Signup error',
+      message: error.message,
+    }));
+    }
+    db.task( (t)=> {
+      const addOrder = yield t.one('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5)RETURNING id', [userId,amountDue,delivery,orderStatus,createdAt]);
+      let OrderItem=[];
+      for (let key = 0; key < item.length; key++) {
+          const { itemId, quantity } = item[key];
+          let addOrderItem= yield t.one('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)',[addOrder.id,itemId,quantity,createdAt]);
+          OrderItem.push(addOrderItem);
+        }
+      return {addOrder,OrderItem};
+  })     
+    
+    .then((orderDetails) => {
+                  orderDetails.item=OrderItem;
+                  res.status(201).send({
+                    status: 'success',
+                    orderDetails,
+                    message: 'order created',
+                  })
+                })
+                .catch(error => res.status(500).send({
+                  status: 'order error',
+                  message: error.message,
+                }));
+  })
+  .catch(error => res.status(500).send({
+    status: 'order error',
+    message: error.message,
+  }));
 };
 /**
  * This function update order.
