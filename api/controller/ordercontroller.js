@@ -50,6 +50,7 @@ export const createOrder = (req, res) => {
   const { item, amountDue } = req.body;
   // users 
   const { userName }=req.userData;
+  console.log(userName);
   // us username to get userId and delivery address
   db.any('SELECT * FROM users WHERE userName = $1', [userName])
   .then((user) => {
