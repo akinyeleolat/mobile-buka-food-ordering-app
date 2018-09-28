@@ -4,7 +4,7 @@ const email = 'akinyeleolat2005@gmail.com';
 const phoneNumber = '+2348032679327';
 const password = 'admin@';
 const userpassword = 'admin@'
-const userType = 'customer';
+const userType = 'admin';
 const deliveryAddress = '5, Oluwalonimi, Ikeja,Lagos';
 
 

@@ -16,7 +16,7 @@ export const validateOrderInput = (req, res, next) => {
   if (valid.checkSpace(amountDue)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: 'customer name and/or delivery address cannot be blank',
+      message: 'amount Due cannot be blank',
     });
   }
   if (!valid.checkNumber(amountDue)) {

@@ -46,13 +46,10 @@ export const getSelectedOrder = (req, res) => {
  * @returns {objects} order data
  */
 export const createOrder = (req, res) => {
-  // req.boy
   const { item, amountDue } = req.body;
-  // users 
-  const { userName }=req.userData;
-  console.log(userName);
-  // us username to get userId and delivery address
-  db.any('SELECT * FROM users WHERE userName = $1', [userName])
+  console.log(item,amountDue);
+  const { username, usertype }=req.userData;
+  db.any('SELECT * FROM users WHERE username = $1', [username])
   .then((user) => {
     if (user.length < 1) {
       return res.status(404).send({
@@ -60,11 +57,11 @@ export const createOrder = (req, res) => {
         message: 'users not registered/logged in',
       });
     }
-    const userId = user.id;
-    const delivery = user.deliveryAddress;
+    const userId = user[0].id;
+    const delivery = user[0].deliveryaddress;
+    const customerName =user[0].fullname;
     const orderStatus ='NEW';
     const createdAt=new Date();
-    // check item exist
     let msg ='';
     for (let key = 0; key < item.length; key++) {
       const { itemId, quantity } = item[key];
@@ -79,23 +76,20 @@ export const createOrder = (req, res) => {
     }
     })
     .catch(error => res.status(500).send({
-      status: 'Signup error',
+      status: 'order error',
       message: error.message,
     }));
     }
-    db.task( (t)=> {
-      const addOrder = t.one('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5)RETURNING id', [userId,amountDue,delivery,orderStatus,createdAt]);
-      let OrderItem=[];
+    db.query('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5) RETURNING id', [userId,amountDue,delivery,orderStatus,createdAt])
+    .then((order)=>{
+      const orderId=order[0].id;
       for (let key = 0; key < item.length; key++) {
-          const { itemId, quantity } = item[key];
-          let addOrderItem= t.one('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)',[addOrder.id,itemId,quantity,createdAt]);
-          OrderItem.push(addOrderItem);
-        }
-      return {addOrder,OrderItem};
-  })     
-    
-    .then((orderDetails) => {
-                  orderDetails.item=OrderItem;
+        const { itemId, quantity } = item[key];
+        db.query('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)',[orderId,itemId,quantity,createdAt])
+      }
+    const orderDetails={orderId,customerName,delivery,amountDue};
+
+                  orderDetails.item=item;
                   res.status(201).send({
                     status: 'success',
                     orderDetails,
