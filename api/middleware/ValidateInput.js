@@ -1,23 +1,28 @@
 import * as valid from './validate';
 export const validateOrderInput = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-    console.log('Object missing');
     return res.status(400).send({
       status: 'Blank Data',
-      message: 'customer name,delivery address and/or item cannot be blank',
+      message: 'order details cannot be blank',
     });
   }
-  const { customerName, deliveryAddress, item } = req.body;
-  if ((!customerName) || (!deliveryAddress) || (!item)) {
+  const { amountDue, item } = req.body;
+  if ((!amountDue) || (!item)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: 'customer name,delivery address and/or item cannot be blank',
+      message: 'order details cannot be blank',
     });
   }
-  if (valid.checkSpace(customerName) || valid.checkSpace(deliveryAddress)) {
+  if (valid.checkSpace(amountDue)) {
     return res.status(400).send({
       status: 'Blank Data',
       message: 'customer name and/or delivery address cannot be blank',
+    });
+  }
+  if (!valid.checkNumber(amountDue)) {
+    return res.status(400).send({
+      status: 'Invalid Data',
+      message: 'amountDue cannot be an alphabet',
     });
   }
   if (item.length < 1) {
@@ -28,32 +33,25 @@ export const validateOrderInput = (req, res, next) => {
   }
   let msg = '';
   for (let key = 0; key < item.length; key++) {
-    const { itemName, itemPrice, quantity } = item[key];
-    if ((!itemName) || (!itemPrice) || (!quantity)) {
+    const { itemId, quantity } = item[key];
+    if ((!itemId) || (!quantity)) {
       msg = {
         status: 'Blank Data',
-        message: 'item name, item price and/or quantity cannot be blank',
+        message: 'itemId and/or quantity cannot be blank',
       };
       return res.status(400).send(msg);
     }
-    if (valid.checkSpace(itemName)) {
+    if ((valid.checkSpace(itemId) )||(valid.checkSpace(quantity) )){
       msg = {
         status: 'Blank Data',
-        message: 'item name, item price and/or quantity cannot be blank',
+        message: 'itemId and/or quantity cannot be blank',
       };
       return res.status(400).send(msg);
     }
-    if (!valid.checkString(itemName)) {
+    if (!valid.checkNumber(itemId) || !valid.checkNumber(quantity)) {
       msg = {
         status: 'Invalid Data',
-        message: 'item name must be an alphabet',
-      };
-      return res.status(400).send(msg);
-    }
-    if (!valid.checkNumber(itemPrice) || !valid.checkNumber(quantity)) {
-      msg = {
-        status: 'Invalid Data',
-        message: 'Item price and/or quantity must be a number and also not zero',
+        message: 'ItemId and/or quantity must be a number and also not zero',
       };
       return res.status(400).send(msg);
     }

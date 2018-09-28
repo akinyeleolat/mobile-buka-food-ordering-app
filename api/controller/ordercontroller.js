@@ -62,7 +62,6 @@ export const createOrder = (req, res) => {
     const userId = user.id;
     const delivery = user.deliveryAddress;
     const orderStatus ='NEW';
-    const amountDue;
     const createdAt=new Date();
     // check item exist
     let msg ='';
@@ -84,11 +83,11 @@ export const createOrder = (req, res) => {
     }));
     }
     db.task( (t)=> {
-      const addOrder = yield t.one('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5)RETURNING id', [userId,amountDue,delivery,orderStatus,createdAt]);
+      const addOrder = t.one('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5)RETURNING id', [userId,amountDue,delivery,orderStatus,createdAt]);
       let OrderItem=[];
       for (let key = 0; key < item.length; key++) {
           const { itemId, quantity } = item[key];
-          let addOrderItem= yield t.one('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)',[addOrder.id,itemId,quantity,createdAt]);
+          let addOrderItem= t.one('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)',[addOrder.id,itemId,quantity,createdAt]);
           OrderItem.push(addOrderItem);
         }
       return {addOrder,OrderItem};

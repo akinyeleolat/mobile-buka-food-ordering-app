@@ -76,6 +76,7 @@ export const login = (req, res) => {
         });
       }
       const result = bcrypt.compareSync(userpassword, user[0].userpassword);
+      console.log(user[0].username,user[0].userType);
       if (result) {
         const token = jwt.sign({
           username: user[0].username,
@@ -84,7 +85,6 @@ export const login = (req, res) => {
           {
             expiresIn: '1h',
           });
-
         return res.status(200).json({
           status: 'success',
           message: 'Auth Successful',
