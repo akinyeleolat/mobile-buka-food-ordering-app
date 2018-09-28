@@ -38,4 +38,5 @@ export const orderData6={
 		],
 		amountDue:'2000'
 }
+console.log(thanks)
 
