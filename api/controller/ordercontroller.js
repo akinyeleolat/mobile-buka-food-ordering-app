@@ -48,7 +48,7 @@ export const getSelectedOrder = (req, res) => {
 export const createOrder = (req, res) => {
   const { item, amountDue } = req.body;
   console.log(item,amountDue);
-  const { username, usertype }=req.userData;
+  const { username }=req.userData;
   db.any('SELECT * FROM users WHERE username = $1', [username])
   .then((user) => {
     if (user.length < 1) {
@@ -117,34 +117,56 @@ export const updateOrder = (req, res) => {
   const orderId = Number(id);
   const { orderStatus } = req.body;
   const newStatus = orderStatus.toLowerCase().trim();
-  const orderDetails = order.find(c => c.id === orderId);
+  const { username,usertype } = req.userData;
+  if (usertype != 'admin') {
+    return res.status(401).send({
+      status: 'Unauthorized',
+      message: 'Unauthorized access'
+    });
+  }
+  db.any('SELECT * FROM orders WHERE id = $1', [orderId])
+  .then((orderDetails) => {
   if (!orderDetails) {
-    res.status(404).send({
+    return res.status(404).send({
       status: 'failed',
       message: 'The order with given id was not found',
     });
-    return;
   }
-  const { customerName, deliveryAddress, item } = orderDetails;
-  if (orderDetails.orderStatus !== newStatus) {
-    const arrayIndex = orderId - 1;
-    const updateOrder = {
-      id: orderId,
-      customerName,
-      deliveryAddress,
-      orderStatus: newStatus,
-      item,
-    };
-    order[arrayIndex] = updateOrder;
-    res.status(200).send({
-      status: 'success',
-      updateOrder,
-      message: `order with id ${orderId} is ${newStatus}`,
-    });
-    return;
-  }
-  res.status(400).send({
+  if(orderDetails.orderstatus!=newStatus){
+    db.any('SELECT * FROM users WHERE username = $1', [username])
+    .then((user) => {
+      const userId = user[0].id;
+      db.query('UPDATE orders SET orderstatus=$1  WHERE id=$2 AND userid=$3',
+          [newStatus, orderId, userId])
+          .then((updateOrder) => {
+            return res.status(200).send({
+              status: 'success',
+              updateOrder,
+              message: `order with id ${orderId} is ${newStatus}`,
+            });
+    })
+    .catch(error => res.status(500).send({
+      status: 'update orderStatus error',
+      message: error.message,
+    }))
+  
+  })
+  .catch(error => res.status(500).send({
+    status: 'update orderStatus error',
+    message: error.message,
+  }))
+}
+  return res.status(400).send({
     status: 'Failed',
     message: `order with id ${orderId} is already ${newStatus}`,
-  });
+  })
+  .catch(error => res.status(500).send({
+    status: 'update orderStatus error',
+    message: error.message,
+  }))
+})
+.catch(error => res.status(500).send({
+  status: 'update orderStatus error',
+  message: error.message,
+}))
 };
