@@ -24,6 +24,8 @@ export const createTable = () => {
   DROP TABLE IF EXISTS Item CASCADE;
   DROP TABLE IF EXISTS Users CASCADE;
   DROP TABLE IF EXISTS Orders CASCADE;
+  DROP TABLE IF EXISTS OrderItem CASCADE;
+
 CREATE TABLE
 IF NOT EXISTS Item
   (
@@ -52,14 +54,18 @@ IF NOT EXISTS Orders
   (
   id SERIAL PRIMARY KEY,
   userId int REFERENCES Users(id),
-  itemName VARCHAR(255) UNIQUE NOT NULL,
-  itemPrice FLOAT NOT NULL,
-  menu VARCHAR(255) NOT NULL,
-  quantity FLOAT  NOT NULL,
-  imageUrl TEXT NOT NULL,
   amountDue  FLOAT NOT NULL,
   delivery VARCHAR(150)  NOT NULL,
   orderStatus VARCHAR(255) NOT NULL,
+  createdAt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE TABLE
+IF NOT EXISTS OrderItem
+  (
+  id SERIAL PRIMARY KEY,
+  orderId int REFERENCES orders(id),
+  itemId int REFERENCES item(id),
+  quantity FLOAT  NOT NULL,
   createdAt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`;
   return new Promise((resolve, reject) => {

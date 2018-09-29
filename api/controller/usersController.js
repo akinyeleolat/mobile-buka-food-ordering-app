@@ -75,16 +75,16 @@ export const login = (req, res) => {
           message: 'Auth failed',
         });
       }
+      console.log(user[0].usertype);
       const result = bcrypt.compareSync(userpassword, user[0].userpassword);
       if (result) {
         const token = jwt.sign({
           username: user[0].username,
-          userType: user[0].userType,
+          userType: user[0].usertype,
         }, process.env.SECRET_KEY,
           {
             expiresIn: '1h',
           });
-
         return res.status(200).json({
           status: 'success',
           message: 'Auth Successful',
