@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { db } from '../config/config';
+dotenv.config();
 
 export const signup = (req, res) => {
   const {

@@ -60,7 +60,6 @@ export const validateOrderInput = (req, res, next) => {
 };
 export const validateOrderStatus = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-    console.log('Object missing');
     return res.status(400).send({
       status: 'Blank Data',
       message: "No input recieved",

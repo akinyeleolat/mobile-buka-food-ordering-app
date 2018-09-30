@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { db } from '../config/config';
 import order from '../model/orderModel';
+import { isNull } from 'util';
 
 
 /**
@@ -87,7 +88,7 @@ export const createOrder = (req, res) => {
         const { itemId, quantity } = item[key];
         db.query('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)',[orderId,itemId,quantity,createdAt])
       }
-    const orderDetails={orderId,customerName,delivery,amountDue};
+    const orderDetails={orderId,customerName,delivery,amountDue,orderStatus};
 
                   orderDetails.item=item;
                   res.status(201).send({
@@ -117,56 +118,55 @@ export const updateOrder = (req, res) => {
   const orderId = Number(id);
   const { orderStatus } = req.body;
   const newStatus = orderStatus.toLowerCase().trim();
-  const { username,usertype } = req.userData;
-  if (usertype != 'admin') {
+  const { username,userType } = req.userData;
+  if (userType !='admin') {
     return res.status(401).send({
       status: 'Unauthorized',
       message: 'Unauthorized access'
     });
   }
-  db.any('SELECT * FROM orders WHERE id = $1', [orderId])
+  db.any('SELECT * FROM ORDERS WHERE id = $1', [orderId])
   .then((orderDetails) => {
-  if (!orderDetails) {
+  if (orderDetails.length<1) {
     return res.status(404).send({
       status: 'failed',
       message: 'The order with given id was not found',
     });
   }
-  if(orderDetails.orderstatus!=newStatus){
+  if(orderDetails[0].orderstatus.toLowerCase()==newStatus){
+    return res.status(400).send({
+      status: 'Failed',
+      message: `order with id ${orderId} is already ${newStatus}`,
+    })  ;
+  }
     db.any('SELECT * FROM users WHERE username = $1', [username])
     .then((user) => {
-      const userId = user[0].id;
-      db.query('UPDATE orders SET orderstatus=$1  WHERE id=$2 AND userid=$3',
-          [newStatus, orderId, userId])
-          .then((updateOrder) => {
+      const delivery = user[0].deliveryaddress;
+      const customerName =user[0].fullname;
+      const amountDue=user[0].amountDue;
+      const updatedOrderDetails={orderId,customerName,delivery,amountDue,orderStatus};
+      db.query('UPDATE ORDERS SET orderstatus=$1  WHERE id=$2',
+          [newStatus, orderId])
+          .then(() => {
             return res.status(200).send({
               status: 'success',
-              updateOrder,
+              updatedOrderDetails,
               message: `order with id ${orderId} is ${newStatus}`,
             });
     })
     .catch(error => res.status(500).send({
       status: 'update orderStatus error',
       message: error.message,
-    }))
-  
+    }));
   })
   .catch(error => res.status(500).send({
     status: 'update orderStatus error',
     message: error.message,
-  }))
-}
-  return res.status(400).send({
-    status: 'Failed',
-    message: `order with id ${orderId} is already ${newStatus}`,
+  }));
+
   })
-  .catch(error => res.status(500).send({
-    status: 'update orderStatus error',
-    message: error.message,
-  }))
-})
 .catch(error => res.status(500).send({
   status: 'update orderStatus error',
   message: error.message,
-}))
+}));
 };
