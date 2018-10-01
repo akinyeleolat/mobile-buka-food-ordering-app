@@ -16,6 +16,6 @@ router.use(express.json());
 router.get('/', orderController.getAllOrder);
 router.get('/:id', orderController.getSelectedOrder);
 router.post('/', checkAuth,valid.validateOrderInput, orderController.createOrder);
-router.put('/:id', valid.validateOrderStatus, orderController.updateOrder);
+router.put('/:id',checkAuth, valid.validateOrderStatus, orderController.updateOrder);
 
 export default router;

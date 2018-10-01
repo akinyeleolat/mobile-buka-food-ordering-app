@@ -1,5 +1,4 @@
 language: node_js
-
 node_js:
   v8.11.3
 env:
@@ -15,7 +14,6 @@ script:
   - npm test
 after_success:
   - npm run coverage
-  
 before_script:
   - psql -c "create database travis;" -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

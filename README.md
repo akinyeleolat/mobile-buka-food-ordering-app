@@ -26,7 +26,7 @@ Currently,
 <li> HyperText Mark-up Language (HTML) </li>
 <li>Cascade Style Sheet (CSS)</li>
 <li>Vanilla Javascript</li>
-<li>PostgreSQL Database(raw SQL): This will be implemented later.</li>
+<li>PostgreSQL Database(raw SQL):</li>
 <li>Nodejs (Express framework)</li>
   </ul>
   
