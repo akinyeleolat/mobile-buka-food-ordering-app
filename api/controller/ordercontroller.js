@@ -10,11 +10,40 @@ import { isNull } from 'util';
  * @returns {object} all order and order items in a single response.
  */
 export const getAllOrder = (req, res) => {
-  return res.status(200).send({
-    status: 'success',
-    order,
-    message: 'Retrieved all order',
-  });
+  const { username, userType }=req.userData;
+     if (userType != 'admin') {
+      return res.status(401).send({
+      status: 'Unauthorized',
+      message: 'Unauthorized access'
+    });
+  }
+
+  db.query('SELECT orders.id,users.fullname,users.phonenumer,orders.delivery,orders.amoountdue,orders.orderstatus,orders.createdat FROM orders INNER JOIN Users ON order.userid=user.id')
+    .then((order)=>{
+      let itemOrder='';
+      for (let key = 0; key < order.length; key++) {
+        const { id }=orders.id;
+      db.query('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderid=$1 ',[id])
+                .then((orderItem)=>{
+                 return itemOrder=itemOrder+orderItem;
+                })
+                .catch(error => res.status(500).send({
+                  status: 'order error',
+                  message: error.message,
+                }));
+      }
+      order.item=itemOrder;
+      return res.status(200).send({
+        status:'success',
+        order,
+        message:`retrieved ${order.length} order`,
+      });
+        })
+  .catch(error => res.status(500).send({
+                  status: 'order error',
+                  message: error.message,
+                }));
+
 };
 
 /**
@@ -48,7 +77,6 @@ export const getSelectedOrder = (req, res) => {
  */
 export const createOrder = (req, res) => {
   const { item, amountDue } = req.body;
-  console.log(item,amountDue);
   const { username }=req.userData;
   db.any('SELECT * FROM users WHERE username = $1', [username])
   .then((user) => {
