@@ -51,6 +51,9 @@ describe('Valid routes', () => {
   it('should return status 200', (done) => {
     request
       .get('/api/v1/orders')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .end(done);
   });
@@ -754,21 +757,30 @@ describe('GET ALL ORDER /api/v1/orders', () => {
   it('should return status 200', (done) => {
     request
       .get('/api/v1/orders')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200)
-      .end((err, res) => {
-        expect(res.body).deep.equal({
-          status: 'success',
-          order,
-          message: 'Retrieved all order',
-        });
-        if (err) done(err);
-        done();
-      });
+      .end(done);
   });
   it('should return all order in JSON format', (done) => {
     request
       .get('/api/v1/orders')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('Non Admin should return status 401', (done) => {
+    const newStatus = { orderStatus: 'Processing' };
+    request
+      .get('/api/v1/orders')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token2}`)
+      .send(newStatus)
+      .expect(401)
       .end(done);
   });
 });
