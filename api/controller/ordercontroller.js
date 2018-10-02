@@ -10,11 +10,25 @@ import { isNull } from 'util';
  * @returns {object} all order and order items in a single response.
  */
 export const getAllOrder = (req, res) => {
-  return res.status(200).send({
-    status: 'success',
-    order,
-    message: 'Retrieved all order',
-  });
+  const { username, userType }=req.userData;
+     if (userType != 'admin') {
+      return res.status(401).send({
+      status: 'Unauthorized',
+      message: 'Unauthorized access'
+    });
+  }
+  db.query('SELECT orders.id,users.fullname,users.phonenumber,orders.delivery,orders.amountdue,orders.orderstatus,orders.createdat FROM orders INNER JOIN Users ON orders.userid=users.id order by orders.createdat DESC')
+    .then((order)=>{
+            return res.status(200).send({
+                status:'success',
+                order,
+                message:`retrieved ${order.length} order`,
+                  })
+        })
+    .catch(error => res.status(500).send({
+                  status: 'order error',
+                  message: error.message,
+                }));
 };
 
 /**
@@ -33,6 +47,63 @@ export const getSelectedOrder = (req, res) => {
     });
     return;
   }
+  let orderItem='';
+      // for (let key = 0; key < order.length; key++) {
+      //   const { id }=order[key];
+      // //   console.log(id);
+      // // db.query('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderitem.orderid=$1 ',[id])
+      // db.query('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem  INNER JOIN item ON orderitem.itemid=item.id INNER JOIN orders ON  orderitem.orderid=orders.id')
+
+      //           .then((orderItem)=>{
+      //            console.log(orderItem);
+      //            // order.item=orderItem;
+      //            for (let key = 0; key < order.length; key++) {
+      //             let order[key].item=orderItem[key];
+      //            }
+      //            const orderDetails={order};
+      //            return res.status(200).send({
+      //           status:'success',
+      //           orderDetails,
+      //           message:`retrieved ${order.length} order`,
+      //             })
+      //           })
+                
+      //           .catch(error => res.status(500).send({
+      //             status: 'order error',
+      //             message: error.message,
+      //           }));
+      // }
+      // order.item=orderItem;
+      // console.log(orderItem);
+       //db.task('getOrders',t => {
+//     return const orderDetails = t.any('SELECT orders.id,users.fullname,users.phonenumber,orders.delivery,orders.amountdue,orders.orderstatus,orders.createdat FROM orders INNER JOIN Users ON orders.userid=users.id order by orders.createdat DESC');
+//     .then(orders =>{
+//       for (let key = 0; key < orders.length; key++) {
+//       const { id }=orders[key];
+//       return  t.any('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderitem.orderId=$1', id);
+//     }
+      
+//   })
+//     // if(orders) {
+        
+//     // }
+//     // return []; // user not found, so no events
+// })
+//     .then(data => {
+//         // success
+//         orderDetails.item = data;
+//         console.log(orderDetails);
+//         return res.status(200).send({
+//                 status:'success',
+//                 orderDetails,
+//                 message:`retrieved ${orderDetails.length} order`,
+//                   })
+//     })
+//     .catch(error => res.status(500).send({
+//                   status: 'order error',
+//                   message: error.message,
+//                 }));
+
   res.status(200).send({
     status: 'success',
     order: orderDetails,
@@ -48,7 +119,6 @@ export const getSelectedOrder = (req, res) => {
  */
 export const createOrder = (req, res) => {
   const { item, amountDue } = req.body;
-  console.log(item,amountDue);
   const { username }=req.userData;
   db.any('SELECT * FROM users WHERE username = $1', [username])
   .then((user) => {
