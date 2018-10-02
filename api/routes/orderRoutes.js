@@ -14,7 +14,7 @@ router.use(express.json());
  * @returns {object} response from the functions.
  */
 router.get('/', checkAuth,orderController.getAllOrder);
-router.get('/:id', orderController.getSelectedOrder);
+router.get('/:id',checkAuth, orderController.getSelectedOrder);
 router.post('/', checkAuth,valid.validateOrderInput, orderController.createOrder);
 router.put('/:id',checkAuth, valid.validateOrderStatus, orderController.updateOrder);
 
