@@ -18,26 +18,38 @@ export const getAllOrder = (req, res) => {
     });
   }
 
-  db.query('SELECT orders.id,users.fullname,users.phonenumer,orders.delivery,orders.amoountdue,orders.orderstatus,orders.createdat FROM orders INNER JOIN Users ON order.userid=user.id')
+  db.query('SELECT orders.id,users.fullname,users.phonenumber,orders.delivery,orders.amountdue,orders.orderstatus,orders.createdat FROM orders INNER JOIN Users ON orders.userid=users.id order by orders.createdat DESC')
     .then((order)=>{
-      let itemOrder='';
-      for (let key = 0; key < order.length; key++) {
-        const { id }=orders.id;
-      db.query('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderid=$1 ',[id])
+      console.log(order);
+      let orderItem='';
+      // for (let key = 0; key < order.length; key++) {
+      //   const { id }=order[key];
+      //   console.log(id);
+      // db.query('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderitem.orderid=$1 ',[id])
+      db.query('SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem  INNER JOIN item ON orderitem.itemid=item.id INNER JOIN orders ON  orderitem.orderid=orders.id')
+
                 .then((orderItem)=>{
-                 return itemOrder=itemOrder+orderItem;
+                 console.log(orderItem);
+                 // order.item=orderItem;
+                 for (let key = 0; key < order.length; key++) {
+                  let order[key].item=orderItem[key];
+                 }
+                 const orderDetails={order};
+                 return res.status(200).send({
+                status:'success',
+                orderDetails,
+                message:`retrieved ${order.length} order`,
+                  })
                 })
+                
                 .catch(error => res.status(500).send({
                   status: 'order error',
                   message: error.message,
                 }));
-      }
-      order.item=itemOrder;
-      return res.status(200).send({
-        status:'success',
-        order,
-        message:`retrieved ${order.length} order`,
-      });
+      // }
+      // order.item=orderItem;
+      // console.log(orderItem);
+      
         })
   .catch(error => res.status(500).send({
                   status: 'order error',
