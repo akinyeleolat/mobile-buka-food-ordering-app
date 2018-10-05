@@ -4,7 +4,7 @@ extends: 'eslint:recommended'
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 3
+  ecmaVersion: 6
 rules:
   indent:
     - error
