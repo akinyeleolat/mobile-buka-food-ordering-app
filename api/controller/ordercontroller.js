@@ -1,8 +1,4 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { isNull } from 'util';
 import { db } from '../config/config';
-import order from '../model/orderModel';
 
 
 /**
@@ -91,23 +87,34 @@ export const getUsersOrder = (req, res) => {
           message: 'The order with given userId was not found',
         });
       }
-      const userDetails = [];
+      let orders;
+      res.writeHead(200, {
+        'content-type': 'application/json',
+      });
+      const returnOrders = (data) => {
+        orders = data[0];
+        orders[0].items = data[1];
+        // order.push(...orders);
+        console.log(orders)
+        res.write(JSON.stringify(orders));
+        // res.end(JSON.stringify(order));
+      };
       for (let key = 0; key < orderDetails.length; key++) {
         const orderId = orderDetails[key].id;
         db.multi(`SELECT orders.id, orders.delivery,orders.amountdue,orders.orderstatus,orders.createdat FROM orders WHERE  orders.id=${[orderId]};
     SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderitem.orderId=${[orderId]}`)
-          .then((data) => {
-            const orders = data[0];
-            orders[0].items = data[1];
-            userDetails[key] = orders;
-            console.log(userDetails[key]);
-          });
+          .then(returnOrders);
+        if (key === orderDetails.length) {
+          res.end();
+        }
       }
-      return res.status(200).send({
-        status: 'success',
-        order: userDetails,
-        message: `retrieved  order for user ${userId}`,
-      });
+      // res.end();
+      // return res.status(200).send({
+      //   status: 'success',
+      //   order,
+      //   message: `retrieved  order for user ${userId}`,
+      // });
+      // res.end('ok');
     })
     .catch(error => res.status(500).send({
       status: 'order error',
