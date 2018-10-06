@@ -4,6 +4,7 @@ import logger from 'morgan';
 import orderRoutes from './routes/orderRoutes';
 import userRoutes from './routes/usersRoutes';
 import menuRoutes from './routes/menuRoutes';
+import userOrderRoutes from './routes/userOrderRoutes';
 
 const app = express();
 
@@ -11,6 +12,7 @@ const app = express();
 app.use('/api/v1/orders', orderRoutes);
 app.use('/auth/', userRoutes);
 app.use('/menu/', menuRoutes);
+app.use('/users/',userOrderRoutes);
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
