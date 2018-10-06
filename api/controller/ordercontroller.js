@@ -76,7 +76,7 @@ export const getSelectedOrder = (req, res) => {
  * @param {number} userId any number
  * @returns {objects} order and order items base on the userId.
  */
-export const getUsersOrder = (req, res) => {
+export const getUsersHistory = (req, res) => {
   const { id } = req.params;
   const userId = Number(id);
   db.any('SELECT * FROM ORDERS WHERE userId = $1', [userId])
@@ -87,40 +87,22 @@ export const getUsersOrder = (req, res) => {
           message: 'The order with given userId was not found',
         });
       }
-      let orders;
-      res.writeHead(200, {
-        'content-type': 'application/json',
-      });
-      const returnOrders = (data) => {
-        orders = data[0];
-        orders[0].items = data[1];
-        // order.push(...orders);
-        console.log(orders)
-        res.write(JSON.stringify(orders));
-        // res.end(JSON.stringify(order));
-      };
-      for (let key = 0; key < orderDetails.length; key++) {
-        const orderId = orderDetails[key].id;
-        db.multi(`SELECT orders.id, orders.delivery,orders.amountdue,orders.orderstatus,orders.createdat FROM orders WHERE  orders.id=${[orderId]};
-    SELECT item.itemName, item.itemPrice,item.imageurl,item.menu,orderitem.quantity FROM orderitem INNER JOIN item ON itemid=item.id WHERE  orderitem.orderId=${[orderId]}`)
-          .then(returnOrders);
-        if (key === orderDetails.length) {
-          res.end();
-        }
-      }
-      // res.end();
-      // return res.status(200).send({
-      //   status: 'success',
-      //   order,
-      //   message: `retrieved  order for user ${userId}`,
-      // });
-      // res.end('ok');
+      db.query('select orders.id, orders.delivery, orders.amountDue,orders.createdAt, item.itemName,item.itemPrice, item.imageUrl, orderItem.quantity FROM orders INNER JOIN orderItem ON orderItem.orderId=orders.id INNER JOIN item ON orderItem.itemId=item.id where orders.userId =$1', [userId])
+        .then((order) => {
+          console.log(order);
+          return res.status(200).send({
+            status: 'success',
+            order,
+            message: `retrieved  order for user ${userId}`,
+          });
+        });
     })
     .catch(error => res.status(500).send({
       status: 'order error',
       message: error.message,
     }));
 };
+
 
 /**
  * This function creates order .

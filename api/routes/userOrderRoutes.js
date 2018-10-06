@@ -11,6 +11,6 @@ router.use(express.json());
  * @param {functions} orderController any number
  * @returns {object} response from the functions.
  */
-router.get('/:id/orders',orderController.getUsersOrder);
+router.get('/:id/orders',orderController.getUsersHistory);
 
 export default router;
