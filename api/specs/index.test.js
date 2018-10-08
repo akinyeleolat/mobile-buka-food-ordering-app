@@ -2,11 +2,10 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import jwt from 'jsonwebtoken';
-import app from '../server';
 
+import app from '../server';
 import order from '../model/orderModel';
 import * as test from '../model/userEntries';
-
 import * as item from '../model/itemEntries';
 import * as orderItem from '../model/orderEntries';
 
@@ -17,20 +16,14 @@ const { expect } = chai;
 const request = supertest.agent(app);
 const username = 'admin';
 const username2 = 'james';
-const username3='test';
+const username3 ='test';
 
 const userType = 'admin';
-const userType2 = 'customer'
-const newCustomerName = 'test';
-const newDeliveryAddress = 'CA Test';
+const userType2 = 'customer';
 const token = jwt.sign({ username, userType }, process.env.SECRET_KEY, { expiresIn: '1h' });
 const token2 = jwt.sign({ username2, userType2 }, process.env.SECRET_KEY, { expiresIn: '1h' });
 const token3 = jwt.sign({ username3, userType2 }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
-const itemDetails = [
-  { itemName: 'Sushi Cuisine', itemPrice: 250, quantity: 20 },
-  { itemName: 'Vegies Chicken', itemPrice: 250, quantity: 25 },
-];
 const { id } = order;
 let orderId = id;
 describe('Invalid routes', () => {
@@ -595,24 +588,48 @@ describe('POST ORDER /api/v1/orders', () => {
       .end(done);
 });
 });
-// describe( 'Order with valid ID',()=>{
-// it('ORDER WITH VALID PARAMETERS should return status 201', (done) => {
-//   const newOrder = {
-//     item:[
-//       {itemId:'1',quantity:'12'}
-//       ],
-//       amountDue:'2000',
-//   };
-//   request
-//     .post('/api/v1/orders')
-//     .set('Accept', 'application/json')
-//     .set('Content-Type', 'application/x-www-form-urlencoded')
-//     .set('Authorization', `Bearer ${token2}`)
-//     .send(newOrder)
-//     .expect(201)
-//     .end(done);
-// });
-// });
+describe( 'POST ORDER with valid ID',()=>{
+  it('USERSNAME NOT FOUND ON ORDER ITEM   should return status 404', (done) => {
+    const newOrder6 = {
+      item:[
+        {itemId:'1',quantity:'12'}
+        ]
+    }
+    request
+      .post('/api/v1/orders')
+      .send(newOrder6)
+      .expect(401)
+      .end(done);
+  });
+  it('ORDER WITH NO VALID ITEM should return status 400', (done) => {
+    const itemOrder = orderItem.orderData7;
+    request
+      .post('/api/v1/orders')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(itemOrder)
+      .expect(400)
+      .end((err, res) => {
+        if (err) done(err);
+        done();
+      });
+  });
+  it('ORDER WITH VALID PARAMETERS should return status 201', (done) => {
+    const itemOrder = orderItem.orderData;
+    request
+      .post('/api/v1/orders')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(itemOrder)
+      .expect(201)
+      .end((err, res) => {
+        if (err) done(err);
+        done();
+      });
+  });
+});
 describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
   // it('ORDER WITH NO VALID ID should return  status 404', (done) => {
   //   orderId = 3;
@@ -625,45 +642,45 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
   //     .expect('Content-Type', 'application/json; charset=utf-8')
   //     .end(done);
   // });
-  // it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
-  //   orderId = 1;
-  //   const newStatus = { orderStatus: 'Processing' };
-  //   request
-  //     .put(`/api/v1/orders/${orderId}`)
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/x-www-form-urlencoded')
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .send(newStatus)
-  //     .expect(200)
-  //     .expect('Content-Type', 'application/json; charset=utf-8')
-  //     .end(done);
-  // });
-  // it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
-  //   orderId = 1;
-  //   const newStatus = { orderStatus: 'pending' };
-  //   request
-  //     .put(`/api/v1/orders/${orderId}`)
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/x-www-form-urlencoded')
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .send(newStatus)
-  //     .expect(200)
-  //     .expect('Content-Type', 'application/json; charset=utf-8')
-  //     .end(done);
-  // });
-  // it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
-  //   orderId = 1;
-  //   const newStatus = { orderStatus: 'COMPLETE' };
-  //   request
-  //     .put(`/api/v1/orders/${orderId}`)
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/x-www-form-urlencoded')
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .send(newStatus)
-  //     .expect(200)
-  //     .expect('Content-Type', 'application/json; charset=utf-8')
-  //     .end(done);
-  // });
+  it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
+    orderId = 1;
+    const newStatus = { orderStatus: 'Processing' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newStatus)
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
+    orderId = 1;
+    const newStatus = { orderStatus: 'pending' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newStatus)
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID should return  status 200', (done) => {
+    orderId = 1;
+    const newStatus = { orderStatus: 'COMPLETE' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newStatus)
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
   it('VALID ORDER WITH VALID ID with empty string should return  status 400', (done) => {
     orderId = 1;
     const newStatus = { orderStatus: '' };
@@ -716,42 +733,39 @@ describe('PUT/UPDATE ORDER /api/v1/orders/:id', () => {
       .expect('Content-Type', 'application/json; charset=utf-8')
       .end(done);
   });
-  // it('VALID ORDER WITH VALID ID with same orderStatus return  status 400', (done) => {
-  //   orderId =  1;
-  //   const newStatus = { orderStatus: 'complete' };
-  //   request
-  //     .put(`/api/v1/orders/${orderId}`)
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/x-www-form-urlencoded')
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .send(newStatus)
-  //     .expect(400)
-  //     .expect('Content-Type', 'application/json; charset=utf-8')
-  //     .end(done);
-  // });
-  // it('VALID ORDER WITH VALID ID should return  json format', (done) => {
-  //   orderId = 1;
-  //   const newStatus = { orderStatus: 'Processing' };
-  //   request
-  //     .put(`/api/v1/orders/${orderId}`)
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/x-www-form-urlencoded')
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .send(newStatus)
-  //     .expect('Content-Type', 'application/json; charset=utf-8')
-  //     .end(done);
-  // });
-  // it('Non Admin should return status 401', (done) => {
-  //   const newStatus = { orderStatus: 'Processing' };
-  //   request
-  //     .post('/menu/')
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/x-www-form-urlencoded')
-  //     .set('Authorization', `Bearer ${token2}`)
-  //     .send(newStatus)
-  //     .expect(401)
-  //     .end(done);
-  // });
+  it('VALID ORDER WITH VALID ID with same orderStatus return  status 400', (done) => {
+    orderId =  1;
+    const newStatus = { orderStatus: 'complete' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newStatus)
+      .expect(400)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('VALID ORDER WITH VALID ID should return  json format', (done) => {
+    orderId = 1;
+    const newStatus = { orderStatus: 'Processing' };
+    request
+      .put(`/api/v1/orders/${orderId}`)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newStatus)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .end(done);
+  });
+  it('Non Admin should return status 401', (done) => {
+    const newStatus = { orderStatus: 'Processing' };
+    request
+      .post('/menu/')
+      .send(newStatus)
+      .expect(401)
+      .end(done);
+  });
 });
 describe('GET ALL ORDER /api/v1/orders', () => {
   it('should return status 200', (done) => {

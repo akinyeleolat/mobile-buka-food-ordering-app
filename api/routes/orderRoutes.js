@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import * as orderController from '../controller/ordercontroller';
 import * as valid from '../middleware/ValidateInput';
 import checkAuth from '../middleware/userAuth';
@@ -6,6 +7,8 @@ import checkAuth from '../middleware/userAuth';
 
 const router = express.Router();
 router.use(express.json());
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 /**
  * This function handles all the request routes

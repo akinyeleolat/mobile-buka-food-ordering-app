@@ -8,22 +8,11 @@ export const validateOrderInput = (req, res, next) => {
     });
   }
   const { item } = req.body;
-  if ((!item)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'order details cannot be blank',
-    });
-  }
-  // if (valid.checkSpace(amountDue)) {
+  console.log(req.body);
+  // if ((!item)) {
   //   return res.status(400).send({
   //     status: 'Blank Data',
-  //     message: 'amount Due cannot be blank',
-  //   });
-  // }
-  // if (!valid.checkNumber(amountDue)) {
-  //   return res.status(400).send({
-  //     status: 'Invalid Data',
-  //     message: 'amountDue cannot be an alphabet',
+  //     message: 'order details cannot be blank',
   //   });
   // }
   if (item.length < 1) {
