@@ -2,11 +2,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { db } from '../config/config';
+
 dotenv.config();
 
 export const signup = (req, res) => {
   const {
-    fullname, deliveryAddress, username, userType, email, phoneNumber, password
+    fullname, deliveryAddress, username, userType, email, phoneNumber, password,
   } = req.body;
   const createdAt = new Date();
   db.any('SELECT * FROM users WHERE email = $1', [email])
@@ -42,21 +43,21 @@ export const signup = (req, res) => {
                     username,
                     userType,
                   }, process.env.SECRET_KEY,
-                    {
-                      expiresIn: '1h',
-                    });
+                  {
+                    expiresIn: '1h',
+                  });
                   res.status(201).send({
                     status: 'success',
                     token,
                     message: 'user created',
-                  })
+                  });
                 })
                 .catch(error => res.status(500).send({
                   status: 'Signup error',
                   message: error.message,
                 }));
-            })
-        })
+            });
+        });
     })
     .catch(error => res.status(500).send({
       status: 'Signup error',
@@ -84,9 +85,9 @@ export const login = (req, res) => {
           username: user[0].username,
           userType: user[0].usertype,
         }, process.env.SECRET_KEY,
-          {
-            expiresIn: '1h',
-          });
+        {
+          expiresIn: '1h',
+        });
         return res.status(200).json({
           status: 'success',
           message: 'Auth Successful',

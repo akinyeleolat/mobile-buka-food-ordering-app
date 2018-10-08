@@ -122,16 +122,9 @@ export const getAmount = (orders)=> {
 export const createOrder = (req, res) => {
   const { item } = req.body;
   const itemIds = item.map(item => item.itemId);
-  const itemQty = item.map(item => item.quantity);
   const { username } = req.userData;
   db.any('SELECT * FROM users WHERE username = $1', [username])
     .then((user) => {
-      if (user.length < 1) {
-        return res.status(404).send({
-          status: 'users auth',
-          message: 'users not registered/logged in',
-        });
-      }
       const userId = user[0].id;
       const delivery = user[0].deliveryaddress;
       const customerName = user[0].fullname;
@@ -187,7 +180,7 @@ export const updateOrder = (req, res) => {
   const { orderStatus } = req.body;
   const newStatus = orderStatus.toLowerCase().trim();
   const { username, userType } = req.userData;
-  if (userType != 'admin') {
+  if (userType !== 'admin') {
     return res.status(401).send({
       status: 'Unauthorized',
       message: 'Unauthorized access',
@@ -201,7 +194,7 @@ export const updateOrder = (req, res) => {
           message: 'The order with given id was not found',
         });
       }
-      if (orderDetails[0].orderstatus.toLowerCase() == newStatus) {
+      if (orderDetails[0].orderstatus.toLowerCase() === newStatus) {
         return res.status(400).send({
           status: 'Failed',
           message: `order with id ${orderId} is already ${newStatus}`,
