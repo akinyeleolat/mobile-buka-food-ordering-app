@@ -89,7 +89,6 @@ export const getUsersHistory = (req, res) => {
       }
       db.query('select orders.id, orders.delivery, orders.amountDue,orders.createdAt, item.itemName,item.itemPrice, item.imageUrl, orderItem.quantity FROM orders INNER JOIN orderItem ON orderItem.orderId=orders.id INNER JOIN item ON orderItem.itemId=item.id where orders.userId =$1', [userId])
         .then((order) => {
-          console.log(order);
           return res.status(200).send({
             status: 'success',
             order,
@@ -103,15 +102,27 @@ export const getUsersHistory = (req, res) => {
     }));
 };
 
+/**
+   * A method to calculate the total amount of  an order
+   * @params {object} req
+   * @params {object} res
+   */
+export const getAmount = (orders)=> {
+  const init = 0;
+  const amountDue = orders.reduce((acc, curr) => (acc + (curr.itemPrice * curr.quantity)), init);
+  return amountDue;
+}
+
 
 /**
  * This function creates order .
  * @param {object} req.item any string
- * @param {number} req.amountDue any string
  * @returns {objects} order data
  */
 export const createOrder = (req, res) => {
-  const { item, amountDue } = req.body;
+  const { item } = req.body;
+  const itemIds = item.map(item => item.itemId);
+  const itemQty = item.map(item => item.quantity);
   const { username } = req.userData;
   db.any('SELECT * FROM users WHERE username = $1', [username])
     .then((user) => {
@@ -126,35 +137,27 @@ export const createOrder = (req, res) => {
       const customerName = user[0].fullname;
       const orderStatus = 'NEW';
       const createdAt = new Date();
-      let msg = '';
-      for (let key = 0; key < item.length; key++) {
-        const { itemId, quantity } = item[key];
-        db.any('SELECT * FROM item WHERE id = $1', [itemId])
-          .then((item) => {
-            if (item.length < 1) {
-              msg = {
-                status: 'item issues',
-                message: 'item not found',
-              };
-              return res.status(404).send(msg);
-            }
+      // credit @ db.task John Madakin fast-food-repo
+      let amountDue = 0;
+      let orderId = 0;
+      db.task((t) => {
+        return t.batch(item.map(item => t.one('SELECT itemprice FROM item WHERE id = $1', itemIds)))
+          .then((result) => {
+            item.forEach((item, i) => {
+              item.itemPrice = result[i].itemprice;
+            });
+            amountDue = getAmount(item);
+            return t.one('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5) RETURNING id', [userId, amountDue, delivery, orderStatus, createdAt])
+              .then((mydata) => {
+                orderId = mydata.id;
+                return t.batch(item.map(item => t.none('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)', [orderId, item.itemId, item.quantity, createdAt])));
+              });
           })
-          .catch(error => res.status(500).send({
-            status: 'order error',
-            message: error.message,
-          }));
-      }
-      db.query('INSERT INTO ORDERS (userId,amountDue,delivery,orderStatus,createdAt) VALUES ($1,$2,$3,$4,$5) RETURNING id', [userId, amountDue, delivery, orderStatus, createdAt])
-        .then((order) => {
-          const orderId = order[0].id;
-          for (let key = 0; key < item.length; key++) {
-            const { itemId, quantity } = item[key];
-            db.query('INSERT INTO ORDERITEM (orderId,itemId,quantity,createdAt) VALUES ($1,$2,$3,$4)', [orderId, itemId, quantity, createdAt]);
-          }
+      })
+        .then(() => {
           const orderDetails = {
             orderId, customerName, delivery, amountDue, orderStatus,
           };
-
           orderDetails.item = item;
           res.status(201).send({
             status: 'success',
@@ -162,9 +165,9 @@ export const createOrder = (req, res) => {
             message: 'order created',
           });
         })
-        .catch(error => res.status(500).send({
-          status: 'order error',
-          message: error.message,
+        .catch(error => res.status(400).send({
+          status: 'error',
+          message: 'Invalid itemId, check that your itemsId is valid',
         }));
     })
     .catch(error => res.status(500).send({

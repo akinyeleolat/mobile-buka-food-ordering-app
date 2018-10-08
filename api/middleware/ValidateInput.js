@@ -1,4 +1,5 @@
 import * as valid from './validate';
+
 export const validateOrderInput = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     return res.status(400).send({
@@ -6,25 +7,25 @@ export const validateOrderInput = (req, res, next) => {
       message: 'order details cannot be blank',
     });
   }
-  const { amountDue, item } = req.body;
-  if ((!amountDue) || (!item)) {
+  const { item } = req.body;
+  if ((!item)) {
     return res.status(400).send({
       status: 'Blank Data',
       message: 'order details cannot be blank',
     });
   }
-  if (valid.checkSpace(amountDue)) {
-    return res.status(400).send({
-      status: 'Blank Data',
-      message: 'amount Due cannot be blank',
-    });
-  }
-  if (!valid.checkNumber(amountDue)) {
-    return res.status(400).send({
-      status: 'Invalid Data',
-      message: 'amountDue cannot be an alphabet',
-    });
-  }
+  // if (valid.checkSpace(amountDue)) {
+  //   return res.status(400).send({
+  //     status: 'Blank Data',
+  //     message: 'amount Due cannot be blank',
+  //   });
+  // }
+  // if (!valid.checkNumber(amountDue)) {
+  //   return res.status(400).send({
+  //     status: 'Invalid Data',
+  //     message: 'amountDue cannot be an alphabet',
+  //   });
+  // }
   if (item.length < 1) {
     return res.status(400).send({
       status: 'Blank Data',
@@ -41,7 +42,7 @@ export const validateOrderInput = (req, res, next) => {
       };
       return res.status(400).send(msg);
     }
-    if ((valid.checkSpace(itemId) )||(valid.checkSpace(quantity) )){
+    if ((valid.checkSpace(itemId)) || (valid.checkSpace(quantity))) {
       msg = {
         status: 'Blank Data',
         message: 'itemId and/or quantity cannot be blank',
@@ -62,11 +63,11 @@ export const validateOrderStatus = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: "No input recieved",
+      message: 'No input recieved',
     });
   }
   let { orderStatus } = req.body;
-  orderStatus = orderStatus.toLowerCase().trim()
+  orderStatus = orderStatus.toLowerCase().trim();
   if (!orderStatus) {
     return res.status(400).send({
       status: 'Blank Data',
@@ -101,7 +102,7 @@ export const ValidateUsersInput = (req, res, next) => {
     });
   }
   let {
-    fullname, deliveryAddress, username, userType, email, phoneNumber, password
+    fullname, deliveryAddress, username, userType, email, phoneNumber, password,
   } = req.body;
   fullname = fullname.trim();
   deliveryAddress = deliveryAddress.trim();
@@ -114,25 +115,25 @@ export const ValidateUsersInput = (req, res, next) => {
   if ((!username) || (!fullname) || (!password) || (!userType) || (!email) || (!phoneNumber) || (!deliveryAddress)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: `users  Details  cannot be blank`,
+      message: 'users  Details  cannot be blank',
     });
   }
   if (valid.checkSpace(username) || valid.checkSpace(fullname) || valid.checkSpace(password) || valid.checkSpace(userType) || valid.checkSpace(email) || valid.checkSpace(phoneNumber) || valid.checkSpace(deliveryAddress)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: `Users Details  cannot be blank`,
+      message: 'Users Details  cannot be blank',
     });
   }
   if (!valid.checkString(username) || !valid.checkString(fullname) || !valid.checkString(userType)) {
     return res.status(400).send({
       status: 'Invalid Data',
-      message: `Username, fullname, and userType  must be an alphabet`,
+      message: 'Username, fullname, and userType  must be an alphabet',
     });
   }
   if (!valid.checkPhoneNumber(phoneNumber)) {
     return res.status(400).send({
       status: 'Invalid Data',
-      message: `Users phoneNumber must be a valid telephone number  with country code (for example +234) and must not be less than 10 character`,
+      message: 'Users phoneNumber must be a valid telephone number  with country code (for example +234) and must not be less than 10 character',
     });
   }
   if (!valid.checkEmail(email)) {
@@ -154,7 +155,7 @@ export const ValidateUsersInput = (req, res, next) => {
     });
   }
   next();
-}
+};
 
 export const ValidateUserLogin = (req, res, next) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
@@ -171,23 +172,23 @@ export const ValidateUserLogin = (req, res, next) => {
   if ((!username) || (!userpassword)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: `users  Details  cannot be blank`,
+      message: 'users  Details  cannot be blank',
     });
   }
   if (!valid.checkString(username)) {
     return res.status(400).send({
       status: 'Invalid Data',
-      message: `Username  must be an alphabet`,
+      message: 'Username  must be an alphabet',
     });
   }
   if (valid.checkSpace(username)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: `Users Details  cannot be blank`,
+      message: 'Users Details  cannot be blank',
     });
   }
   next();
-}
+};
 
 
 export const ValidateMenuInput = (req, res, next) => {
@@ -197,7 +198,9 @@ export const ValidateMenuInput = (req, res, next) => {
       message: 'No input recieved',
     });
   }
-  let { itemName, itemPrice, imageUrl, menu } = req.body;
+  let {
+ itemName, itemPrice, imageUrl, menu 
+} = req.body;
   itemName = itemName.toLowerCase().trim();
   itemPrice = itemPrice.trim();
   imageUrl = imageUrl.trim();
@@ -206,21 +209,21 @@ export const ValidateMenuInput = (req, res, next) => {
   if ((!itemName) || (!itemPrice) || (!imageUrl) || (!menu)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: `Food  Details  cannot be blank`,
+      message: 'Food  Details  cannot be blank',
     });
   }
   // space
   if (valid.checkSpace(itemName) || valid.checkSpace(itemPrice) || valid.checkSpace(imageUrl) || valid.checkSpace(menu)) {
     return res.status(400).send({
       status: 'Blank Data',
-      message: `Food  Details  cannot be blank`,
+      message: 'Food  Details  cannot be blank',
     });
   }
   // itemName, menu string
   if (!valid.checkString(itemName) || !valid.checkString(menu)) {
     return res.status(400).send({
       status: 'Invalid Data',
-      message: `Item Name and/or Menu  must be an alphabet`,
+      message: 'Item Name and/or Menu  must be an alphabet',
     });
   }
   // item price number
@@ -232,5 +235,5 @@ export const ValidateMenuInput = (req, res, next) => {
   }
 
   next();
-}
+};
 
