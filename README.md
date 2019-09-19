@@ -88,3 +88,5 @@ run npm run start then navigate to localhost:3000 on POSTMAN
   
 # Author
 Akinyele Oluwatosin
+# ScreenShot
+<img width="1440" alt="Screenshot 2019-09-19 at 10 56 05 AM" src="https://user-images.githubusercontent.com/19696366/65234356-51149e00-dacc-11e9-99aa-758005d5c2d0.png">
