@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.com/akinyeleolat/mobile-buka-food-ordering-app.svg?branch=develop)](https://travis-ci.com/akinyeleolat/mobile-buka-food-ordering-app)
 [![Coverage Status](https://coveralls.io/repos/github/akinyeleolat/mobile-buka-food-ordering-app/badge.svg?branch=develop)](https://coveralls.io/github/akinyeleolat/mobile-buka-food-ordering-app?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e8a5b970ff56ec88d1bb/maintainability)](https://codeclimate.com/github/akinyeleolat/mobile-buka-food-ordering-app/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e8a5b970ff56ec88d1bb/test_coverage)](https://codeclimate.com/github/akinyeleolat/mobile-buka-food-ordering-app/test_coverage)
 # mobile-buka-food-ordering-app
 
 # Description
